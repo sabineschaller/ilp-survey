@@ -1,0 +1,23 @@
+{
+  "name": "ilp-monetized-survey",
+  "version": "0.0.1",
+  "description": "A prototype to monetize survey participation.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sabinebertram/ilp-monetized-survey.git"
+  },
+  "author": "Sabine Bertram",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sabinebertram/ilp-monetized-survey/issues"
+  },
+  "homepage": "https://github.com/sabinebertram/ilp-monetized-survey#readme",
+  "dependencies": {
+
+  }
+}
