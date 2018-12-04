@@ -31,11 +31,11 @@
 
     <div class="row">
       <div class="col-md-8 offset-md-2">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" method="POST" novalidate>
 
           <div class="mb-3">
             <label for="age">Age</label>
-            <input type="text" class="form-control" id="age" placeholder="Please input ..." required>
+            <input type="text" class="form-control" name="age" placeholder="Please input ..." required>
             <div class="invalid-feedback">
               Please input your age.
             </div>
@@ -44,23 +44,15 @@
 
           <div class="mb-3">
             <label for="race">Race</label>
-            <select class="custom-select d-block w-100" id="race" required>
+            <select class="custom-select d-block w-100" name="race" required>
               <option value="">Please select ...</option>
-              <option>Decline to state</option>
-              <option>White</option>
-              <option>Latino</option>
-              <option>Black or African American</option>
-              <option>Native American</option>
-              <option>Asian Indian</option>
-              <option>Chinese</option>
-              <option>Filipino</option>
-              <option>Japanese</option>
-              <option>Korean</option>
-              <option>Vitnamese</option>
-              <option>Native Hawaiian</option>
-              <option>Korean</option>
-              <option>Other Asian</option>
-              <option>Other</option>
+              <option value="decline">Decline to state</option>
+              <option value="white">White</option>
+              <option value="latino">Latino</option>
+              <option value="black">Black or African American</option>
+              <option value="native">Native American</option>
+              <option value="acian">Asian</option>
+              <option value="other">Other</option>
             </select>
             <div class="invalid-feedback">
               Please select a valid race.
@@ -69,11 +61,11 @@
 
           <div class="mb-3">
             <label for="ethnicity">Ethnicity</label>
-            <select class="custom-select d-block w-100" id="ethnicity" required>
+            <select class="custom-select d-block w-100" name="ethnicity" required>
               <option value="">Please select ...</option>
-              <option>Decline to state</option>
-              <option>Hispanic or Latino</option>
-              <option>Not Hispanic or Latino</option>
+              <option value="decline">Decline to state</option>
+              <option value="hispanic">Hispanic or Latino</option>
+              <option value="other">Not Hispanic or Latino</option>
             </select>
             <div class="invalid-feedback">
               Please select a valid ethnicity.
@@ -82,12 +74,12 @@
 
           <div class="mb-3">
             <label for="sex">Sex</label>
-            <select class="custom-select d-block w-100" id="sex" required>
+            <select class="custom-select d-block w-100" name="sex" required>
               <option value="">Please select ...</option>
-              <option>Decline to state</option>
-              <option>Female</option>
-              <option>Male</option>
-              <option>Other</option>
+              <option value="decline">Decline to state</option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="other">Other</option>
             </select>
             <div class="invalid-feedback">
               Please select a valid sex.
@@ -96,19 +88,19 @@
 
           <div class="mb-3">
             <label for="education">Education</label>
-            <select class="custom-select d-block w-100" id="education" required>
+            <select class="custom-select d-block w-100" name="education" required>
               <option value="">Please select ...</option>
-              <option>Decline to state</option>
-              <option>None</option>
-              <option>Elementary</option>
-              <option>High School no degree</option>
-              <option>High School graduate</option>
-              <option>Some College</option>
-              <option>Associate's degree</option>
-              <option>Bachelor's degree</option>
-              <option>Master's degree</option>
-              <option>Professional school degree</option>
-              <option>Doctorate degree</option>
+              <option value="decline">Decline to state</option>
+              <option value="none">None</option>
+              <option value="elementary">Elementary</option>
+              <option value="highschool_nodegree">High School no degree</option>
+              <option value="highschool_degree">High School graduate</option>
+              <option value="college_nodegree">Some College</option>
+              <option value="associate">Associate's degree</option>
+              <option value="bachelor">Bachelor's degree</option>
+              <option value="master">Master's degree</option>
+              <option value="professional">Professional school degree</option>
+              <option value="doctorate">Doctorate degree</option>
             </select>
             <div class="invalid-feedback">
               Please select a valid education.
@@ -117,11 +109,11 @@
 
           <div class="mb-3">
             <label for="nationality">Nationality</label>
-            <select class="custom-select d-block w-100" id="nationality" required>
+            <select class="custom-select d-block w-100" name="nationality" required>
               <option value="">Please select ...</option>
-              <option>Decline to state</option>
-              <option>United States</option>
-              <option>Canada</option>
+              <option value="decline">Decline to state</option>
+              <option value="USA">United States</option>
+              <option value="CA">Canada</option>
             </select>
             <div class="invalid-feedback">
               Please select a valid nationality.
