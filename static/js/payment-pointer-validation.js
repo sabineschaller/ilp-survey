@@ -10,10 +10,10 @@
             if (validPointer(input.value) === false) {
                 event.preventDefault();
                 event.stopPropagation();
+                input.value = '';
             } else {
                 storePointer(input.value);
             }
-            input.value = '';
             form.classList.add('was-validated');
         }, false);
     });
