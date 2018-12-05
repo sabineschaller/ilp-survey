@@ -31,7 +31,7 @@
           <div>
             <p>Reference: EAGLE</p>
             <p>Options:</p>
-            <form novalidate>
+            <form novalidate method="POST">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="options" id="option1" value="option1" checked>
                     <label class="form-check-label" for="option1">Duck</label>
@@ -40,18 +40,17 @@
                     <input class="form-check-input" type="radio" name="options" id="option2" value="option2">
                     <label class="form-check-label" for="option2">Horse</label>
                 </div>
-            </form>
-          </div>
-          <br>
-          <p>In this case, you would select "Duck" with mouse/touchscreen because an eagle is more similar to a duck than to a horse (i.e., because both are birds).</p>
-          <p>Consider each choice carefully, and respond as quickly as you are able. When you have decided, click "Submit" and you will be redirected to the next question. There are no right or wrong answers - we are merely interested in the principles which guide your decisions. If you do not know one of the people in question, feel free to look them up online, but do not feel obliged to research them in detail. If you are ready to start this task, please press the "begin" button below. Do not hit the reload or back buttons during the experiment unless you wish to exit the study.</p>
-          <hr class="mb-4">
-        </div>
-      </div>
+            
+                <br>
+                <p>In this case, you would select "Duck" with mouse/touchscreen because an eagle is more similar to a duck than to a horse (i.e., because both are birds).</p>
+                <p>Consider each choice carefully, and respond as quickly as you are able. When you have decided, click "Submit" and you will be redirected to the next question. There are no right or wrong answers - we are merely interested in the principles which guide your decisions. If you do not know one of the people in question, feel free to look them up online, but do not feel obliged to research them in detail. If you are ready to start this task, please press the "begin" button below. Do not hit the reload or back buttons during the experiment unless you wish to exit the study.</p>
+                
+                <input type="text" id="form-origin" name="form-origin" value="instructions" hidden>
 
-      <div class="row">
-        <div class="col-md-8 offset-md-2">
-          <a href="question.html" class="btn btn-primary btn-lg btn-block">Begin</a>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+              </form>
+          </div>          
         </div>
       </div>
 

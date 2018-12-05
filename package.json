@@ -23,6 +23,7 @@
     "ilp-spsp": "^1.2.0",
     "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
+    "koa-ejs": "^4.1.2",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0"
   }
