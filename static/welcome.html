@@ -1,82 +1,52 @@
-<!doctype html>
-<html lang="en">
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>WELCOME!</h2>
+        <hr class="mb-4">
+        <h5>PLEASE PROVIDE US WITH YOUR PAYMENT POINTER SUCH THAT YOU CAN GET PAID.</h5>
+    </div>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
-
-    <title>ILP Surveys</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <!-- <link href="form-validation.css" rel="stylesheet"> -->
-</head>
-
-<body class="bg-light">
-
-    <div class="container">
-        <div class="py-5 text-center">
-            <h2>WELCOME!</h2>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h5>What is a payment pointer?</h5>
+            <p>A payment pointer is an address that can receive a currency via the Interledger Protocol.</p>
+            <h5>How do I get a payment pointer?</h5>
+            <p>The easiest way to get a payment pointer is through <a href="https://www.xrptipbot.com/?login=do">XRP
+                    Tip Bot</a>, that let's you create one using your Twitter, reddit, or Discord login
+                credentials. To learn more about XRP Tip Bot, visit their <a href="https://www.xrptipbot.com">webpage</a>.</p>
             <hr class="mb-4">
-            <h5>PLEASE PROVIDE US WITH YOUR PAYMENT POINTER SUCH THAT YOU CAN GET PAID.</h5>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h5>What is a payment pointer?</h5>
-                <p>A payment pointer is an address that can receive a currency via the Interledger Protocol.</p>
-                <h5>How do I get a payment pointer?</h5>
-                <p>The easiest way to get a payment pointer is through <a href="https://www.xrptipbot.com/?login=do">XRP
-                        Tip Bot</a>, that let's you create one using your Twitter, reddit, or Discord login
-                    credentials. To learn more about XRP Tip Bot, visit their <a href="https://www.xrptipbot.com">webpage</a>.</p>
-                <hr class="mb-4">
-            </div>
-        </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form class="needs-validation" method="POST" novalidate>
 
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <form class="needs-validation" method="POST" novalidate>
-
-                    <div class="mb-3">
-                        <label for="pp">Payment Pointer</label>
-                        <input type="text" class="form-control" id="pp" name="pp" placeholder="Please input ..." required>
-                        <div class="invalid-feedback">
-                            Please input a valid payment pointer.
-                        </div>
+                <div class="mb-3">
+                    <label for="pp">Payment Pointer</label>
+                    <input type="text" class="form-control" id="pp" name="pp" placeholder="Please input ..." required>
+                    <div class="invalid-feedback">
+                        Please input a valid payment pointer.
                     </div>
+                </div>
 
-                    <input type="text" id="form-origin" name="form-origin" value="welcome" hidden>
+                <input type="text" id="form-origin" name="form-origin" value="welcome" hidden>
 
-                    <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
-                </form>
-            </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+            </form>
         </div>
+    </div>
 
-        <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">
-                <!--&copy;--> Demo</p>
-            <!-- <ul class="list-inline">
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">
+            <!--&copy;--> Demo</p>
+        <!-- <ul class="list-inline">
                 <li class="list-inline-item"><a href="#">Privacy</a></li>
                 <li class="list-inline-item"><a href="#">Terms</a></li>
                 <li class="list-inline-item"><a href="#">Support</a></li>
             </ul> -->
-        </footer>
-    </div>
+    </footer>
+</div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/payment-pointer-validation.js"></script>
-</body>
-
-</html>
+<%- include('bootstrap'); -%>
+<script src="js/payment-pointer-validation.js"></script>

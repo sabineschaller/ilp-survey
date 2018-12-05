@@ -14,7 +14,7 @@ app.use(bodyParser());
 
 render(app, {
   root: path.join(__dirname, 'static'),
-  layout: false,
+  layout: 'template',
   viewExt: 'html',
   cache: false,
   debug: false

@@ -1,155 +1,126 @@
-<!doctype html>
-<html lang="en">
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>DEMOGRAPHIC QUESTIONNAIRE</h2>
+    <hr class="mb-4">
+    <h5>PLEASE ANSWER THE FOLLOWING QUESTIONS.</h5>
+    <p class="lead">Your answers to these items will not affect the results you receive – they are merely for the
+      purpose of improving the scientific conclusions we can draw from your participation. Simply select "decline to
+      state" for any question you do not feel comfortable answering.</p>
+  </div>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <!-- <link rel="icon" href="../../../../favicon.ico"> -->
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <form class="needs-validation" method="POST" novalidate>
 
-  <title>ILP Surveys</title>
+        <div class="mb-3">
+          <label for="age">Age</label>
+          <input type="text" class="form-control" name="age" placeholder="Please input ..." required>
+          <div class="invalid-feedback">
+            Please input your age.
+          </div>
+          <p>You have to be at least 18 years old in order to participate.</p>
+        </div>
 
-  <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+        <div class="mb-3">
+          <label for="race">Race</label>
+          <select class="custom-select d-block w-100" name="race" required>
+            <option value="">Please select ...</option>
+            <option value="decline">Decline to state</option>
+            <option value="white">White</option>
+            <option value="latino">Latino</option>
+            <option value="black">Black or African American</option>
+            <option value="native">Native American</option>
+            <option value="acian">Asian</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid race.
+          </div>
+        </div>
 
-  <!-- Custom styles for this template -->
-  <!-- <link href="form-validation.css" rel="stylesheet"> -->
-</head>
+        <div class="mb-3">
+          <label for="ethnicity">Ethnicity</label>
+          <select class="custom-select d-block w-100" name="ethnicity" required>
+            <option value="">Please select ...</option>
+            <option value="decline">Decline to state</option>
+            <option value="hispanic">Hispanic or Latino</option>
+            <option value="other">Not Hispanic or Latino</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid ethnicity.
+          </div>
+        </div>
 
-<body class="bg-light">
+        <div class="mb-3">
+          <label for="sex">Sex</label>
+          <select class="custom-select d-block w-100" name="sex" required>
+            <option value="">Please select ...</option>
+            <option value="decline">Decline to state</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid sex.
+          </div>
+        </div>
 
-  <div class="container">
-    <div class="py-5 text-center">
-      <h2>DEMOGRAPHIC QUESTIONNAIRE</h2>
-      <hr class="mb-4">
-      <h5>PLEASE ANSWER THE FOLLOWING QUESTIONS.</h5>
-      <p class="lead">Your answers to these items will not affect the results you receive – they are merely for the
-        purpose of improving the scientific conclusions we can draw from your participation. Simply select "decline to
-        state" for any question you do not feel comfortable answering.</p>
+        <div class="mb-3">
+          <label for="education">Education</label>
+          <select class="custom-select d-block w-100" name="education" required>
+            <option value="">Please select ...</option>
+            <option value="decline">Decline to state</option>
+            <option value="none">None</option>
+            <option value="elementary">Elementary</option>
+            <option value="highschool_nodegree">High School no degree</option>
+            <option value="highschool_degree">High School graduate</option>
+            <option value="college_nodegree">Some College</option>
+            <option value="associate">Associate's degree</option>
+            <option value="bachelor">Bachelor's degree</option>
+            <option value="master">Master's degree</option>
+            <option value="professional">Professional school degree</option>
+            <option value="doctorate">Doctorate degree</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid education.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="nationality">Nationality</label>
+          <select class="custom-select d-block w-100" name="nationality" required>
+            <option value="">Please select ...</option>
+            <option value="decline">Decline to state</option>
+            <option value="USA">United States</option>
+            <option value="CA">Canada</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid nationality.
+          </div>
+        </div>
+
+        <input type="text" id="pp" name="pp" hidden>
+        <input type="text" id="form-origin" name="form-origin" value="demographics" hidden>
+
+        <hr class="mb-4">
+        <p>The more granular you answer, the more cash you get.</p>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+      </form>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <form class="needs-validation" method="POST" novalidate>
-
-          <div class="mb-3">
-            <label for="age">Age</label>
-            <input type="text" class="form-control" name="age" placeholder="Please input ..." required>
-            <div class="invalid-feedback">
-              Please input your age.
-            </div>
-            <p>You have to be at least 18 years old in order to participate.</p>
-          </div>
-
-          <div class="mb-3">
-            <label for="race">Race</label>
-            <select class="custom-select d-block w-100" name="race" required>
-              <option value="">Please select ...</option>
-              <option value="decline">Decline to state</option>
-              <option value="white">White</option>
-              <option value="latino">Latino</option>
-              <option value="black">Black or African American</option>
-              <option value="native">Native American</option>
-              <option value="acian">Asian</option>
-              <option value="other">Other</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid race.
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="ethnicity">Ethnicity</label>
-            <select class="custom-select d-block w-100" name="ethnicity" required>
-              <option value="">Please select ...</option>
-              <option value="decline">Decline to state</option>
-              <option value="hispanic">Hispanic or Latino</option>
-              <option value="other">Not Hispanic or Latino</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid ethnicity.
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="sex">Sex</label>
-            <select class="custom-select d-block w-100" name="sex" required>
-              <option value="">Please select ...</option>
-              <option value="decline">Decline to state</option>
-              <option value="female">Female</option>
-              <option value="male">Male</option>
-              <option value="other">Other</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid sex.
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="education">Education</label>
-            <select class="custom-select d-block w-100" name="education" required>
-              <option value="">Please select ...</option>
-              <option value="decline">Decline to state</option>
-              <option value="none">None</option>
-              <option value="elementary">Elementary</option>
-              <option value="highschool_nodegree">High School no degree</option>
-              <option value="highschool_degree">High School graduate</option>
-              <option value="college_nodegree">Some College</option>
-              <option value="associate">Associate's degree</option>
-              <option value="bachelor">Bachelor's degree</option>
-              <option value="master">Master's degree</option>
-              <option value="professional">Professional school degree</option>
-              <option value="doctorate">Doctorate degree</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid education.
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="nationality">Nationality</label>
-            <select class="custom-select d-block w-100" name="nationality" required>
-              <option value="">Please select ...</option>
-              <option value="decline">Decline to state</option>
-              <option value="USA">United States</option>
-              <option value="CA">Canada</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid nationality.
-            </div>
-          </div>
-
-          <input type="text" id="pp" name="pp" hidden>
-          <input type="text" id="form-origin" name="form-origin" value="demographics" hidden>
-
-          <hr class="mb-4">
-          <p>The more granular you answer, the more cash you get.</p>
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
-        </form>
-      </div>
-    </div>
-
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-      <p class="mb-1"><!--&copy;--> Demo</p>
-      <p>Adapted from <a href="https://mysocialbrain.org/">MySocialBrain</a></p>
-      <!-- <ul class="list-inline">
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">
+      <!--&copy;--> Demo</p>
+    <p>Adapted from <a href="https://mysocialbrain.org/">MySocialBrain</a></p>
+    <!-- <ul class="list-inline">
         <li class="list-inline-item"><a href="#">Privacy</a></li>
         <li class="list-inline-item"><a href="#">Terms</a></li>
         <li class="list-inline-item"><a href="#">Support</a></li>
       </ul> -->
-    </footer>
-  </div>
+  </footer>
+</div>
 
-  <!-- Bootstrap core JavaScript
-    ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/payment-pointer-insertion.js"></script>
-  <script src="js/form-validation.js"></script>
-</body>
-
-</html>
+<%- include('bootstrap'); -%>
+<script src="js/payment-pointer-insertion.js"></script>
+<script src="js/form-validation.js"></script>
