@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/sabinebertram/ilp-monetized-survey#readme",
   "dependencies": {
+    "ilp": "^14.1.0",
+    "ilp-protocol-spsp": "^2.2.0",
+    "ilp-spsp": "^1.2.0",
     "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
