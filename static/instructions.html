@@ -36,13 +36,16 @@
             during the experiment unless you wish to exit the study.</p>
 
           <input type="text" id="form-origin" name="form-origin" value="instructions" hidden>
+          <input type="text" id="balance" name="balance" value=<%= balance %> hidden>
 
           <hr class="mb-4">
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Begin</button>
         </form>
       </div>
     </div>
   </div>
+
+  <%- include('balance'); -%>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">

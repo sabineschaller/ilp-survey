@@ -1,5 +1,13 @@
 <div class="container">
     <div class="py-5 text-center">
+
+        <% if (error) { %>
+            <div class="error">
+                <%= error %>
+            </div>
+            <br>
+        <% } %>
+
         <h2>WELCOME!</h2>
         <hr class="mb-4">
         <h5>PLEASE PROVIDE US WITH YOUR PAYMENT POINTER SUCH THAT YOU CAN GET PAID.</h5>
@@ -30,12 +38,15 @@
                 </div>
 
                 <input type="text" id="form-origin" name="form-origin" value="welcome" hidden>
+                <input type="text" id="balance" name="balance" value=<%= balance %> hidden>
 
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
             </form>
         </div>
     </div>
+
+    <%- include('balance'); -%>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
         <p class="mb-1">

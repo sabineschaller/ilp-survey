@@ -101,6 +101,7 @@
 
         <input type="text" id="pp" name="pp" hidden>
         <input type="text" id="form-origin" name="form-origin" value="demographics" hidden>
+        <input type="text" id="balance" name="balance" value=<%= balance %> hidden>
 
         <hr class="mb-4">
         <p>The more granular you answer, the more cash you get.</p>
@@ -108,6 +109,8 @@
       </form>
     </div>
   </div>
+
+  <%- include('balance'); -%>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">

@@ -6,6 +6,7 @@ const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
 const demographics = require('./src/demographics');
 const question = require('./src/question');
+const pointerCheck = require('./src/check-pointer');
 
 const app = new Koa();
 
@@ -21,34 +22,33 @@ render(app, {
 });
 
 router.get('/', async ctx => {
-    await ctx.render('welcome');
+    await ctx.render('welcome', {balance: 0, error: ''});
     ctx.status = 301;
 });
 
 router.post('/', async ctx => {
 
     if (ctx.request.body['form-origin'] === 'welcome'){
-        await ctx.render('demographics');
+        let payout = await pointerCheck.process(ctx.request.body);
+        if (payout > 0) {
+            await ctx.render('demographics', {balance: payout.toFixed(4)});
+        } else {
+            await ctx.render('welcome', {balance: 0, error: 'We were not able to send the first 100 Drops to you. Please check whether you misspelled your payment pointer.'});
+        }
     } 
     
     else if (ctx.request.body['form-origin'] === 'demographics') {
-        if (demographics.process(ctx.request.body) === true) {
-            await ctx.render('instructions');
-        } else {
-            await ctx.render('welcome');
-        }
+        let payout = demographics.process(ctx.request.body);
+        await ctx.render('instructions', {balance: payout.toFixed(4)});
     }
 
     if (ctx.request.body['form-origin'] === 'instructions'){
-        await ctx.render('question');
+        await ctx.render('question', {balance: ctx.request.body.balance});
     } 
 
     else if (ctx.request.body['form-origin'] === 'question') {
-        if (question.process(ctx.request.body) === true) {
-            await ctx.render('thanks');
-        } else {
-            await ctx.render('welcome');
-        }
+        let payout = question.process(ctx.request.body);
+        await ctx.render('thanks', {balance: payout.toFixed(4)});
     }
 });
 

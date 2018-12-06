@@ -4,15 +4,15 @@ const ilp = require('ilp');
 const spsp = require('ilp-protocol-spsp');
 const debug = require('debug')('ilp-spsp');
 
-function pay(recipient, amount) {
+async function pay(recipient, amount) {
     console.log(recipient, amount);
     try {
         const plugin = ilp.createPlugin()
         debug('connecting plugin')
-        plugin.connect()
+        await plugin.connect()
 
         debug('sending payment')
-        spsp.pay(plugin, {
+        await spsp.pay(plugin, {
             receiver: recipient,
             sourceAmount: amount
         })

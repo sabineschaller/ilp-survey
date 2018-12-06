@@ -1,0 +1,19 @@
+.counter {
+    position: fixed; 
+    bottom: 20px; 
+    background-color: #800000;
+    color: white;
+    padding: 4px 6px 4px 6px;
+    border-color: #800000;
+    border-radius: 6px;
+}
+
+.error {
+    background-color: #800000;
+    color: white;
+    padding: 4px 6px 4px 6px;
+    border: 4px;
+    border-style: solid;
+    border-color: #800000;
+    border-radius: 6px;
+}
