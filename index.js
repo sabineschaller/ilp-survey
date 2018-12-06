@@ -29,9 +29,9 @@ router.get('/', async ctx => {
 router.post('/', async ctx => {
 
     if (ctx.request.body['form-origin'] === 'welcome'){
-        let payout = await pointerCheck.process(ctx.request.body);
-        if (payout > 0) {
-            await ctx.render('demographics', {balance: payout.toFixed(4)});
+        let check = await pointerCheck.process(ctx.request.body);
+        if (check) {
+            await ctx.render('demographics', {balance: 0});
         } else {
             await ctx.render('welcome', {balance: 0, error: 'We were not able to send the first 100 Drops to you. Please check whether you misspelled your payment pointer.'});
         }
