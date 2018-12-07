@@ -23,7 +23,7 @@
           <label class="form-check-label" for="option2">Albert Einstein</label>
         </div>
 
-        <input type="text" id="pp" name="pp" hidden>
+        <input type="text" id="pp" name="pp" value=<%= pointer %> hidden>
         <input type="text" id="form-origin" name="form-origin" value="question" hidden>
         <input type="text" id="balance" name="balance" value=<%= balance %> hidden>
 
@@ -48,5 +48,4 @@
 </div>
 
 <%- include('bootstrap'); -%>
-<script src="js/payment-pointer-insertion.js"></script>
 <script src="js/form-validation.js"></script>

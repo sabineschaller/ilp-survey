@@ -22,7 +22,12 @@ render(app, {
 });
 
 router.get('/', async ctx => {
-    await ctx.render('welcome', {balance: 0, error: ''});
+    await ctx.render('welcome', {pointer: '', balance: 0, error: ''});
+    ctx.status = 301;
+});
+
+router.get('/pointer', async ctx => {
+    await ctx.render('pointer');
     ctx.status = 301;
 });
 
@@ -31,25 +36,29 @@ router.post('/', async ctx => {
     if (ctx.request.body['form-origin'] === 'welcome'){
         let check = await pointerCheck.process(ctx.request.body);
         if (check) {
-            await ctx.render('demographics', {balance: 0});
+            await ctx.render('demographics', {pointer: ctx.request.body.pp, balance: 0});
         } else {
-            await ctx.render('welcome', {balance: 0, error: 'We were not able to send the first 100 Drops to you. Please check whether you misspelled your payment pointer.'});
+            await ctx.render('welcome', {pointer: '', balance: 0, error: 'We were not able to send the first 100 Drops to you. Please check whether you misspelled your payment pointer.'});
         }
     } 
     
     else if (ctx.request.body['form-origin'] === 'demographics') {
         let payout = demographics.process(ctx.request.body);
-        await ctx.render('instructions', {balance: payout.toFixed(4)});
+        await ctx.render('instructions', {pointer: ctx.request.body.pp, balance: payout.toFixed(4)});
     }
 
     if (ctx.request.body['form-origin'] === 'instructions'){
-        await ctx.render('question', {balance: ctx.request.body.balance});
+        await ctx.render('question', {pointer: ctx.request.body.pp, balance: ctx.request.body.balance});
     } 
 
     else if (ctx.request.body['form-origin'] === 'question') {
         let payout = question.process(ctx.request.body);
-        await ctx.render('thanks', {balance: payout.toFixed(4)});
+        await ctx.render('thanks', {pointer: ctx.request.body.pp, balance: payout.toFixed(4)});
     }
+});
+
+router.post('/pointer', async ctx => {
+    await ctx.redirect('/');
 });
 
 app.use(router.routes());

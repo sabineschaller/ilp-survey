@@ -18,9 +18,7 @@
             <h5>What is a payment pointer?</h5>
             <p>A payment pointer is an address that can receive a currency via the Interledger Protocol.</p>
             <h5>How do I get a payment pointer?</h5>
-            <p>The easiest way to get a payment pointer is through <a href="https://www.xrptipbot.com/?login=do">XRP
-                    Tip Bot</a>, that let's you create one using your Twitter, reddit, or Discord login
-                credentials. To learn more about XRP Tip Bot, visit their <a href="https://www.xrptipbot.com">webpage</a>.</p>
+            <p>You can create your own payment pointer <a href="pointer">here</a>.</p>
             <hr class="mb-4">
         </div>
     </div>
@@ -31,7 +29,11 @@
 
                 <div class="mb-3">
                     <label for="pp">Payment Pointer</label>
-                    <input type="text" class="form-control" id="pp" name="pp" placeholder="Please input ..." required>
+                    <% if (pointer) { %>
+                        <input type="text" class="form-control" id="pp" name="pp" value=<%= pointer %> required>
+                    <% }else{ %>
+                        <input type="text" class="form-control" id="pp" name="pp" placeholder="Please input ..." required>
+                     <% } %>
                     <div class="invalid-feedback">
                         Please input a valid payment pointer.
                     </div>
@@ -61,3 +63,4 @@
 
 <%- include('bootstrap'); -%>
 <script src="js/payment-pointer-validation.js"></script>
+<script src="js/payment-pointer-insertion.js"></script>
