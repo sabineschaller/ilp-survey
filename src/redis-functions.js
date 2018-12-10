@@ -4,6 +4,7 @@ const {promisify} = require('util');
 const redis = require('redis');
 const surveys = redis.createClient()
 surveys.getAsync = promisify(surveys.get).bind(surveys);
+surveys.keysAsync = promisify(surveys.keys).bind(surveys);
 
 surveys.on('connect', function() {
     console.log('Redis client surveys connected');

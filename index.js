@@ -8,6 +8,7 @@ const demographics = require('./src/demographics');
 const question = require('./src/question');
 const pointerCheck = require('./src/check-pointer');
 const creation = require('./src/creation');
+const overview = require('./src/overview');
 
 const app = new Koa();
 
@@ -23,7 +24,13 @@ render(app, {
 });
 
 router.get('/', async ctx => {
-    await ctx.render('welcome', {pointer: '', balance: 0, error: ''});
+    let surveys = await overview.getAllSurveys();
+    await ctx.render('overview', {surveys: surveys});
+    ctx.status = 301;
+});
+
+router.get('/:id', async ctx => {
+    await ctx.render('welcome', {id: ctx.params.id, pointer: '', balance: 0, error: ''});
     ctx.status = 301;
 });
 
@@ -69,7 +76,6 @@ router.post('/pointer', async ctx => {
 
 router.post('/create', async ctx => {
     let codes = await creation.process(ctx.request.body);
-    console.log(codes);
     if (codes === []) {
         await ctx.render('create', {error : 'A survey with that name already exists. Please choose another name.'});
     } else {

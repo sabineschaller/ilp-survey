@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="py-5 text-center">
+
+        <h2>ILP SURVEYS</h2>
+        <hr class="mb-4">
+        <p class="lead">Here is a selection of surveys that are active at the moment.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+
+            <% if (surveys) { %>
+            <% for (let id in surveys) { %>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img class="card-img-top" src="img/question.jpg" alt="???">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <%- surveys[id].name %>
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <form action="<%- id %>" method="GET">
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary">Participate</button>
+                                </div>
+                            </form>
+                            <small class="text-muted">
+                                <%- surveys[id].price %> XRP</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }; %>
+            <% } %>
+        </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">
+            <!--&copy;--> Demo</p>
+        <!-- <ul class="list-inline">
+                  <li class="list-inline-item"><a href="#">Privacy</a></li>
+                  <li class="list-inline-item"><a href="#">Terms</a></li>
+                  <li class="list-inline-item"><a href="#">Support</a></li>
+                </ul> -->
+    </footer>
+</div>
+
+<%- include('bootstrap'); -%>
