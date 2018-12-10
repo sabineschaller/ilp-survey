@@ -8,7 +8,7 @@ const demographics = require('./src/demographics');
 const question = require('./src/question');
 const pointerCheck = require('./src/check-pointer');
 const creation = require('./src/creation');
-const overview = require('./src/overview');
+const redis = require('./src/redis-functions');
 
 const app = new Koa();
 
@@ -24,7 +24,7 @@ render(app, {
 });
 
 router.get('/', async ctx => {
-    let surveys = await overview.getAllSurveys();
+    let surveys = await redis.getAllSurveys();
     await ctx.render('overview', {surveys: surveys});
     ctx.status = 301;
 });
