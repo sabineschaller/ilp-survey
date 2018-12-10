@@ -1,0 +1,30 @@
+<div class="container">
+        <div class="py-5 text-center">
+    
+            <h2>YOUR INVITE CODES</h2>
+            <hr class="mb-4">
+            <p class="lead">Please store them in a safe place and hand them out to your participants.</p>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <ul>
+                    <% codes.forEach(function(code){ %>
+                        <li><samp><%- code %></samp></li> 
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+    
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">
+                <!--&copy;--> Demo</p>
+                <!-- <ul class="list-inline">
+                  <li class="list-inline-item"><a href="#">Privacy</a></li>
+                  <li class="list-inline-item"><a href="#">Terms</a></li>
+                  <li class="list-inline-item"><a href="#">Support</a></li>
+                </ul> -->
+        </footer>
+    </div>
+    
+    <%- include('bootstrap'); -%>

@@ -1,16 +1,18 @@
 'use strict';
 
+const hat = require('hat');
 const helpers = require('./helpers');
 const redisFunc = require('./redis-functions')
 
 async function process(obj) {
     let surveyObject = await createSurveyObject(obj);
+    console.log(surveyObject.survey);
     let result = await redisFunc.surveys.getAsync(surveyObject.id);
     if (result === null) {
         await redisFunc.surveys.set(surveyObject.id, surveyObject.survey);
-        return true;
+        return surveyObject.codes;
     } else {
-        return false;
+        return [];
     }
 }
 
@@ -18,6 +20,7 @@ function createSurveyObject(obj) {
     let id = helpers.hashCode(obj['survey-name']);
     let questions = findValueByPrefix(obj, 'q');
     let options = findValueByPrefix(obj, 'o', true);
+    let codes = generateInviteCodes(obj['survey-codes']);
     let output = {
         id : id,
         survey : {
@@ -25,11 +28,20 @@ function createSurveyObject(obj) {
             instruction: obj['survey-instruction'],
             price: obj['survey-price'],
             questions: questions,
-            options: options,
-            timestamp : Date.now()
-        } 
+            options: options
+        },
+        codes : codes,
+        timestamp : Date.now()
     }
     return output;
+}
+
+function generateInviteCodes(n) {
+    let codes = [];
+    for (let i = 0; i < n; i++) {
+        codes.push(hat());
+    }
+    return codes;
 }
 
 function findValueByPrefix(object, prefix, split = false) {

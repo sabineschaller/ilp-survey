@@ -68,11 +68,12 @@ router.post('/pointer', async ctx => {
 });
 
 router.post('/create', async ctx => {
-    let storage = await creation.process(ctx.request.body);
-    if (storage === true) {
-        console.log('created');
-    } else {
+    let codes = await creation.process(ctx.request.body);
+    console.log(codes);
+    if (codes === []) {
         await ctx.render('create', {error : 'A survey with that name already exists. Please choose another name.'});
+    } else {
+        await ctx.render('invitecodes', {codes : codes});
     }
 });
 

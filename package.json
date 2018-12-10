@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/sabinebertram/ilp-monetized-survey#readme",
   "dependencies": {
+    "hat": "0.0.3",
     "ilp": "^14.1.0",
     "ilp-protocol-spsp": "^2.2.0",
     "ilp-spsp": "^1.2.0",

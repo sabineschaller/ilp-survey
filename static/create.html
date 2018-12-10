@@ -2,10 +2,10 @@
     <div class="py-5 text-center">
 
         <% if (error) { %>
-            <div class="error">
-                <%= error %>
-            </div>
-            <br>
+        <div class="error">
+            <%= error %>
+        </div>
+        <br>
         <% } %>
 
         <h2>CREATE A SURVEY</h2>
@@ -55,7 +55,17 @@
                     <input type="number" min="0.01" step="0.01" class="form-control" name="survey-price" placeholder="Please input ..."
                         required>
                     <div class="invalid-feedback">
-                        Please input a name for the suvey.
+                        Please input a valid price per answer.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="survey-codes"><b>Number of invite codes</b></label>
+                    <p>Please indicate how many invite codes you would like to generate.</p>
+                    <input type="number" min="1" step="1" class="form-control" name="survey-codes" placeholder="Please input ..."
+                        required>
+                    <div class="invalid-feedback">
+                        Please input a valid number.
                     </div>
                 </div>
 
@@ -63,8 +73,7 @@
                 <input type="text" id="form-origin" name="form-origin" value="create" hidden>
 
                 <hr class="mb-4">
-                <p>The more granular you answer, the more cash you get.</p>
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Create</button>
             </form>
         </div>
     </div>
