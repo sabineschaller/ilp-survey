@@ -7,6 +7,7 @@ const bodyParser = require('koa-bodyparser');
 const demographics = require('./src/demographics');
 const question = require('./src/question');
 const pointerCheck = require('./src/check-pointer');
+const creation = require('./src/creation');
 
 const app = new Koa();
 
@@ -28,6 +29,11 @@ router.get('/', async ctx => {
 
 router.get('/pointer', async ctx => {
     await ctx.render('pointer');
+    ctx.status = 301;
+});
+
+router.get('/create', async ctx => {
+    await ctx.render('create', {error : ''});
     ctx.status = 301;
 });
 
@@ -59,6 +65,15 @@ router.post('/', async ctx => {
 
 router.post('/pointer', async ctx => {
     await ctx.redirect('/');
+});
+
+router.post('/create', async ctx => {
+    let storage = await creation.process(ctx.request.body);
+    if (storage === true) {
+        console.log('created');
+    } else {
+        await ctx.render('create', {error : 'A survey with that name already exists. Please choose another name.'});
+    }
 });
 
 app.use(router.routes());

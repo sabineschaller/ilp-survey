@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="py-5 text-center">
+
+        <% if (error) { %>
+            <div class="error">
+                <%= error %>
+            </div>
+            <br>
+        <% } %>
+
+        <h2>CREATE A SURVEY</h2>
+        <hr class="mb-4">
+        <p class="lead">The information you provide here will create a survey. At the end of the creation process, you
+            will have to transfer some XRP to unlock it. This amount will be used to pay your participants.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form class="needs-validation" method="POST" novalidate>
+
+                <div class="mb-3">
+                    <label for="survey-name"><b>Name</b></label>
+                    <input type="text" class="form-control" name="survey-name" placeholder="Please input ..." required>
+                    <div class="invalid-feedback">
+                        Please input a name for the suvey.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="survey-instruction"><b>Instructions</b></label>
+                    <p>Please use HTML tags if you want to style the instructions.</p>
+                    <textarea class="form-control" maxlength=1000 name="survey-instruction" placeholder="Please input ..."
+                        required></textarea>
+                    <div class="invalid-feedback">
+                        Please input the instructions for the suvey.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="survey-demographics"><b>Demographics</b></label>
+                    <p>We asked for the following demographics: age, race, ethnicity, sex, education, nationality.</p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="survey-questions"><b>Questions</b></label>
+                    <p>Please add your questions and answer choices.</p>
+                    <div id="survey-questions"></div>
+                    <button class="btn btn-primary" type="button" id="button-questions">Add</button>
+                </div>
+
+                <div class="mb-3">
+                    <label for="survey-price"><b>Price per answer</b></label>
+                    <p>Please indicate what you are willing to spend on each answer. The price should be
+                        specified in XRP. The minimum is 0.01 XRP.</p>
+                    <input type="number" min="0.01" step="0.01" class="form-control" name="survey-price" placeholder="Please input ..."
+                        required>
+                    <div class="invalid-feedback">
+                        Please input a name for the suvey.
+                    </div>
+                </div>
+
+
+                <input type="text" id="form-origin" name="form-origin" value="create" hidden>
+
+                <hr class="mb-4">
+                <p>The more granular you answer, the more cash you get.</p>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">
+            <!--&copy;--> Demo</p>
+            <!-- <ul class="list-inline">
+              <li class="list-inline-item"><a href="#">Privacy</a></li>
+              <li class="list-inline-item"><a href="#">Terms</a></li>
+              <li class="list-inline-item"><a href="#">Support</a></li>
+            </ul> -->
+    </footer>
+</div>
+
+<%- include('bootstrap'); -%>
+<script src="js/form-validation.js"></script>
+<script src="js/create-questions.js"></script>
