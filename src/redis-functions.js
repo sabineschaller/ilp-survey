@@ -15,18 +15,24 @@ surveys.on('error', function (err) {
 });
 
 async function getAllSurveys() {
-    let surveys = {};
+    let surveyObject = {};
     let keys = await surveys.keysAsync('*');
     if (keys) {
         for (let i = 0; i < keys.length; i++) {
             let survey = await surveys.getAsync(keys[i])
-            surveys[keys[i]] = await JSON.parse(survey);
+            surveyObject[keys[i]] = await JSON.parse(survey);
         }
     }
-    return surveys;
+    return surveyObject;
+}
+
+async function getOneSurvey(id) {
+    let survey = await surveys.getAsync(id)
+    return JSON.parse(survey);
 }
 
 module.exports = {
     surveys : surveys,
-    getAllSurveys : getAllSurveys
+    getAllSurveys : getAllSurveys,
+    getOneSurvey : getOneSurvey
 };
