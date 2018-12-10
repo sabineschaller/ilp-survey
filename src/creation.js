@@ -6,10 +6,9 @@ const redisFunc = require('./redis-functions')
 
 async function process(obj) {
     let surveyObject = await createSurveyObject(obj);
-    console.log(surveyObject.survey);
     let result = await redisFunc.surveys.getAsync(surveyObject.id);
     if (result === null) {
-        await redisFunc.surveys.set(surveyObject.id, surveyObject.survey);
+        await redisFunc.surveys.set(surveyObject.id, JSON.stringify(surveyObject.survey));
         return surveyObject.codes;
     } else {
         return [];
