@@ -7,32 +7,30 @@
     </div>
 
     <div class="row">
-        <div class="col-md-8 offset-md-2">
-
-            <% if (surveys) { %>
-            <% for (let id in surveys) { %>
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <img class="card-img-top" src="img/question.jpg" alt="???">
-                    <div class="card-body">
-                        <p class="card-text">
-                            <%- surveys[id].name %>
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <form action="<%- id %>" method="GET">
-                                <div class="btn-group">
-                                    <button type="submit" class="btn btn-sm btn-outline-secondary">Participate</button>
-                                </div>
-                            </form>
-                            <small class="text-muted">
-                                <%- surveys[id].price %> XRP</small>
-                        </div>
+        <% if (surveys) { %>
+        <% for (let id in surveys) { %>
+        <div class="col-lg-3 col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <img class="card-img-top" src="img/question.jpg" alt="???">
+                <div class="card-body">
+                    <p class="card-text">
+                        <%- surveys[id].name %>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <form action="survey/<%- id %>" method="GET">
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-sm btn-outline-secondary">Participate</button>
+                            </div>
+                        </form>
+                        <small class="text-muted">
+                            <%- surveys[id].price %> XRP</small>
                     </div>
                 </div>
             </div>
-            <% }; %>
-            <% } %>
+
         </div>
+        <% }; %>
+        <% } %>
     </div>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
