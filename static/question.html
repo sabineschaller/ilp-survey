@@ -1,6 +1,6 @@
 <div class="container">
   <div class="progress">
-    <div class="progress-bar" role="progressbar" style="width: 2%" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress-bar" role="progressbar" style="width: <%- n/total * 100 %>%" aria-valuenow="<%- n %>" aria-valuemax="<%- total %>"></div>
   </div>
   <div class="py-5 text-center">
     <h2>QUESTIONS</h2>
@@ -10,22 +10,19 @@
 
   <div class="row">
     <div class="col-md-8 offset-md-2">
-      <p>Please select which of the choices is more similar to the reference.</p>
-      <p>Reference: AMELIA EARHART</p>
-      <p>Options:</p>
+        <%- question -%>
       <form class="needs-validation" method="POST" novalidate>
+        <% for (let i=1; i < options.length+1; i++) { %>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="options" id="option1" value="option1" required>
-          <label class="form-check-label" for="option1">Elizabeth II</label>
+          <input class="form-check-input" type="radio" name="options" id="option<%- i %>" value="option<%- i %>" required>
+          <label class="form-check-label" for="option<%- i %>"><%- options[i-1] %></label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="options" id="option2" value="option2" required>
-          <label class="form-check-label" for="option2">Albert Einstein</label>
-        </div>
+        <% }; %>
 
         <input type="text" id="pp" name="pp" value=<%= pointer %> hidden>
         <input type="text" id="form-origin" name="form-origin" value="question" hidden>
         <input type="text" id="balance" name="balance" value=<%= balance %> hidden>
+        <input type="text" id="balance" name="n" value=<%= n %> hidden>
 
         <hr class="mb-4">
         <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
@@ -38,7 +35,6 @@
   <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">
       <!--&copy;--> Demo</p>
-    <p>Adapted from <a href="https://mysocialbrain.org/">MySocialBrain</a></p>
     <!-- <ul class="list-inline">
           <li class="list-inline-item"><a href="#">Privacy</a></li>
           <li class="list-inline-item"><a href="#">Terms</a></li>

@@ -2,24 +2,27 @@
     <div class="py-5 text-center">
 
         <% if (error) { %>
-            <div class="error">
-                <%= error %>
-            </div>
-            <br>
+        <div class="error">
+            <%= error %>
+        </div>
+        <br>
         <% } %>
 
         <h2>WELCOME TO</h2>
-        <h2><%= id %></h2>
+        <h2>-
+            <%= name %>-</h2>
         <hr class="mb-4">
-        <h5>PLEASE PROVIDE US WITH YOUR PAYMENT POINTER SUCH THAT YOU CAN GET PAID.</h5>
+        <p class="lead">Please provide us with a participation code and a payment pointer.</p>
     </div>
 
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <h5>What is a payment pointer?</h5>
-            <p>A payment pointer is an address that can receive a currency via the Interledger Protocol.</p>
-            <h5>How do I get a payment pointer?</h5>
-            <p>You can create your own payment pointer <a href="pointer">here</a>.</p>
+            <h5>What is a participation code and where do I get it from?</h5>
+            <p>In order to participate, you have to be invited by the creator of the survey. Please contact the creator
+                and ask for a participation code.</p>
+            <h5>What is a payment pointer and how do I get one?</h5>
+            <p>A payment pointer is an address that can receive a currency via the Interledger Protocol. You can create
+                your own payment pointer <a href="/pointer">here</a>.</p>
             <hr class="mb-4">
         </div>
     </div>
@@ -29,19 +32,27 @@
             <form class="needs-validation" method="POST" novalidate>
 
                 <div class="mb-3">
+                    <label for="pc">Participation Code</label>
+                    <input type="text" class="form-control" id="pc" name="pc" placeholder="Please input ..." required>
+                    <div class="invalid-feedback">
+                        Please input a valid participation code.
+                    </div>
+                </div>
+
+                <div class="mb-3">
                     <label for="pp">Payment Pointer</label>
                     <% if (pointer) { %>
-                        <input type="text" class="form-control" id="pp" name="pp" value=<%= pointer %> required>
+                    <input type="text" class="form-control" id="pp" name="pp" value=<%=pointer %> required>
                     <% }else{ %>
-                        <input type="text" class="form-control" id="pp" name="pp" placeholder="Please input ..." required>
-                     <% } %>
+                    <input type="text" class="form-control" id="pp" name="pp" placeholder="Please input ..." required>
+                    <% } %>
                     <div class="invalid-feedback">
                         Please input a valid payment pointer.
                     </div>
                 </div>
 
                 <input type="text" id="form-origin" name="form-origin" value="welcome" hidden>
-                <input type="text" id="balance" name="balance" value=<%= balance %> hidden>
+                <input type="text" id="balance" name="balance" value=<%=balance %> hidden>
 
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
@@ -63,5 +74,5 @@
 </div>
 
 <%- include('bootstrap'); -%>
-<script src="js/payment-pointer-validation.js"></script>
-<script src="js/payment-pointer-insertion.js"></script>
+<script src="/js/payment-pointer-validation.js"></script>
+<script src="/js/payment-pointer-insertion.js"></script>

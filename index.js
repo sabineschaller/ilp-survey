@@ -16,21 +16,22 @@ app.use(serve(path.resolve(__dirname, 'static')));
 app.use(bodyParser());
 
 render(app, {
-  root: path.join(__dirname, 'static'),
-  layout: 'template',
-  viewExt: 'html',
-  cache: false,
-  debug: false
+    root: path.join(__dirname, 'static'),
+    layout: 'template',
+    viewExt: 'html',
+    cache: false,
+    debug: false
 });
 
 router.get('/', async ctx => {
     let surveys = await redis.getAllSurveys();
-    await ctx.render('overview', {surveys: surveys});
+    await ctx.render('overview', { surveys: surveys });
     ctx.status = 301;
 });
 
-router.get('/:id', async ctx => {
-    await ctx.render('welcome', {id: ctx.params.id, pointer: '', balance: 0, error: ''});
+router.get('/survey/:id', async ctx => {
+    let survey = await redis.getOneSurvey(ctx.params.id);
+    await ctx.render('welcome', { name: survey.name.toUpperCase(), pointer: '', balance: 0, error: '' });
     ctx.status = 301;
 });
 
@@ -40,33 +41,45 @@ router.get('/pointer', async ctx => {
 });
 
 router.get('/create', async ctx => {
-    await ctx.render('create', {error : ''});
+    await ctx.render('create', { error: '' });
     ctx.status = 301;
 });
 
-router.post('/', async ctx => {
+router.post('/survey/:id', async ctx => {
+    let survey = await redis.getOneSurvey(ctx.params.id);
+    let total = Object.keys(survey.questions).length;
 
-    if (ctx.request.body['form-origin'] === 'welcome'){
-        let check = await pointerCheck.process(ctx.request.body);
-        if (check) {
-            await ctx.render('demographics', {pointer: ctx.request.body.pp, balance: 0});
+    if (ctx.request.body['form-origin'] === 'welcome') {
+        if (survey.codes.includes(ctx.request.body.pc)) {
+            let check = await pointerCheck.process(ctx.request.body);
+            if (check) {
+                await ctx.render('demographics', { pointer: ctx.request.body.pp, balance: 0 });
+            } else {
+                await ctx.render('welcome', { name: survey.name.toUpperCase(), pointer: '', balance: 0, error: 'We were not able to send the first 100 Drops to you. Please check whether you misspelled your payment pointer.' });
+            }
         } else {
-            await ctx.render('welcome', {pointer: '', balance: 0, error: 'We were not able to send the first 100 Drops to you. Please check whether you misspelled your payment pointer.'});
+            await ctx.render('welcome', { name: survey.name.toUpperCase(), pointer: '', balance: 0, error: 'Sorry, we could not find your participation code. Please try again.' });
         }
-    } 
-    
-    else if (ctx.request.body['form-origin'] === 'demographics') {
-        let payout = demographics.process(ctx.request.body);
-        await ctx.render('instructions', {pointer: ctx.request.body.pp, balance: payout.toFixed(4)});
     }
 
-    if (ctx.request.body['form-origin'] === 'instructions'){
-        await ctx.render('question', {pointer: ctx.request.body.pp, balance: ctx.request.body.balance});
-    } 
+    else if (ctx.request.body['form-origin'] === 'demographics') {
+        let payout = demographics.process(ctx.request.body);
+        await ctx.render('instructions', { instruction: survey.instruction, pointer: ctx.request.body.pp, balance: payout.toFixed(4) });
+    }
+
+    if (ctx.request.body['form-origin'] === 'instructions') {
+        await ctx.render('question', { question: survey.questions.q1, options: survey.options.o1, total: total, n: 1, pointer: ctx.request.body.pp, balance: ctx.request.body.balance });
+    }
 
     else if (ctx.request.body['form-origin'] === 'question') {
         let payout = question.process(ctx.request.body);
-        await ctx.render('thanks', {pointer: ctx.request.body.pp, balance: payout.toFixed(4)});
+        let n = await ctx.request.body.n;
+        if (n < total) {
+            await n++;
+            await ctx.render('question', { question: survey.questions['q' + n], options: survey.options['o' + n], total: total, n: n, pointer: ctx.request.body.pp, balance: ctx.request.body.balance });
+        } else {
+            await ctx.render('thanks', { pointer: ctx.request.body.pp, balance: payout.toFixed(4) });
+        }
     }
 });
 
@@ -77,9 +90,9 @@ router.post('/pointer', async ctx => {
 router.post('/create', async ctx => {
     let codes = await creation.process(ctx.request.body);
     if (codes === []) {
-        await ctx.render('create', {error : 'A survey with that name already exists. Please choose another name.'});
+        await ctx.render('create', { error: 'A survey with that name already exists. Please choose another name.' });
     } else {
-        await ctx.render('invitecodes', {codes : codes});
+        await ctx.render('invitecodes', { codes: codes });
     }
 });
 

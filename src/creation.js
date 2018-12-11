@@ -9,7 +9,7 @@ async function process(obj) {
     let result = await redisFunc.surveys.getAsync(surveyObject.id);
     if (result === null) {
         await redisFunc.surveys.set(surveyObject.id, JSON.stringify(surveyObject.survey));
-        return surveyObject.codes;
+        return surveyObject.survey.codes;
     } else {
         return [];
     }
@@ -27,10 +27,10 @@ function createSurveyObject(obj) {
             instruction: obj['survey-instruction'],
             price: obj['survey-price'],
             questions: questions,
-            options: options
-        },
-        codes : codes,
-        timestamp : Date.now()
+            options: options,
+            codes : codes,
+            timestamp : Date.now()
+        }
     }
     return output;
 }
