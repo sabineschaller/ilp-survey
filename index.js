@@ -84,7 +84,7 @@ router.post('/survey/:id', async ctx => {
 });
 
 router.post('/pointer', async ctx => {
-    await ctx.redirect('/');
+    await ctx.render('view-pointer');
 });
 
 router.post('/create', async ctx => {
