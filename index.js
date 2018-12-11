@@ -35,11 +35,6 @@ router.get('/survey/:id', async ctx => {
     ctx.status = 301;
 });
 
-router.get('/pointer', async ctx => {
-    await ctx.render('pointer');
-    ctx.status = 301;
-});
-
 router.get('/create', async ctx => {
     await ctx.render('create', { error: '' });
     ctx.status = 301;
@@ -82,10 +77,6 @@ router.post('/survey/:id', async ctx => {
             await ctx.render('thanks', { pointer: ctx.request.body.pp, balance: balance.toFixed(2) });
         }
     }
-});
-
-router.post('/pointer', async ctx => {
-    await ctx.render('view-pointer');
 });
 
 router.post('/create', async ctx => {
