@@ -48,6 +48,7 @@ router.get('/create', async ctx => {
 router.post('/survey/:id', async ctx => {
     let survey = await redis.getOneSurvey(ctx.params.id);
     let total = Object.keys(survey.questions).length;
+    let price = Number(survey.price);
 
     if (ctx.request.body['form-origin'] === 'welcome') {
         if (survey.codes.includes(ctx.request.body.pc)) {
@@ -55,7 +56,7 @@ router.post('/survey/:id', async ctx => {
             if (check) {
                 await ctx.render('demographics', { pointer: ctx.request.body.pp, balance: 0 });
             } else {
-                await ctx.render('welcome', { name: survey.name.toUpperCase(), pointer: '', balance: 0, error: 'We were not able to send the first 100 Drops to you. Please check whether you misspelled your payment pointer.' });
+                await ctx.render('welcome', { name: survey.name.toUpperCase(), pointer: '', balance: 0, error: 'We were not able to verify your account. Please check whether you misspelled your payment pointer.' });
             }
         } else {
             await ctx.render('welcome', { name: survey.name.toUpperCase(), pointer: '', balance: 0, error: 'Sorry, we could not find your participation code. Please try again.' });
@@ -63,8 +64,8 @@ router.post('/survey/:id', async ctx => {
     }
 
     else if (ctx.request.body['form-origin'] === 'demographics') {
-        let payout = demographics.process(ctx.request.body);
-        await ctx.render('instructions', { instruction: survey.instruction, pointer: ctx.request.body.pp, balance: payout.toFixed(4) });
+        let balance = demographics.process(price, ctx.request.body);
+        await ctx.render('instructions', { instruction: survey.instruction, pointer: ctx.request.body.pp, balance: balance.toFixed(2) });
     }
 
     if (ctx.request.body['form-origin'] === 'instructions') {
@@ -72,13 +73,13 @@ router.post('/survey/:id', async ctx => {
     }
 
     else if (ctx.request.body['form-origin'] === 'question') {
-        let payout = question.process(ctx.request.body);
+        let balance = question.process(price, ctx.request.body);
         let n = await ctx.request.body.n;
         if (n < total) {
             await n++;
-            await ctx.render('question', { question: survey.questions['q' + n], options: survey.options['o' + n], total: total, n: n, pointer: ctx.request.body.pp, balance: ctx.request.body.balance });
+            await ctx.render('question', { question: survey.questions['q' + n], options: survey.options['o' + n], total: total, n: n, pointer: ctx.request.body.pp, balance: balance.toFixed(2) });
         } else {
-            await ctx.render('thanks', { pointer: ctx.request.body.pp, balance: payout.toFixed(4) });
+            await ctx.render('thanks', { pointer: ctx.request.body.pp, balance: balance.toFixed(2) });
         }
     }
 });

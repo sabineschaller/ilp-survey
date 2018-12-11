@@ -3,9 +3,9 @@
 const payment = require('./payment');
 const helpers = require('./helpers');
 
-function process(obj) {
-    payment.pay(obj.pp, 100);
-    return Number(obj.balance) + helpers.dropsToXRP(100);
+function process(price, obj) {
+    payment.pay(obj.pp, helpers.XRPToDrops(price));
+    return Number(obj.balance) + price;
 }
 
 module.exports = {
