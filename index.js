@@ -107,7 +107,11 @@ router.post('/activation', async ctx => {
         if (survey === null) {
             await ctx.render('activation', { error: 'We could not find your survey. Please check whether your misspelled your survey ID.' });
         } else {
-            await ctx.render('deposit', { id: ctx.params.id, name: survey.name, deposit: survey.deposit });
+            if (ctx.request.body['pp'] === survey.pointer) {
+                await ctx.render('deposit', { id: ctx.params.id, name: survey.name, deposit: survey.deposit });
+            } else {
+                await ctx.render('activation', { error: 'This is not the payment pointer you used to create the survey. Please use your original pointer.' });
+            }
         }
     } else {
         await ctx.render('activation', { error: 'We were not able to verify your account. Please check whether you misspelled your payment pointer.' });
