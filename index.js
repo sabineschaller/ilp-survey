@@ -40,6 +40,11 @@ router.get('/create', async ctx => {
     ctx.status = 301;
 });
 
+router.get('/activation', async ctx => {
+    await ctx.render('activation', { error: '' });
+    ctx.status = 301;
+});
+
 router.post('/survey/:id', async ctx => {
     let survey = await redis.getOneSurvey(ctx.params.id);
     let total = Object.keys(survey.questions).length;
@@ -63,7 +68,7 @@ router.post('/survey/:id', async ctx => {
         await ctx.render('instructions', { instruction: survey.instruction, pointer: ctx.request.body.pp, balance: balance.toFixed(2) });
     }
 
-    if (ctx.request.body['form-origin'] === 'instructions') {
+    else if (ctx.request.body['form-origin'] === 'instructions') {
         await ctx.render('question', { question: survey.questions.q1, options: survey.options.o1, total: total, n: 1, pointer: ctx.request.body.pp, balance: ctx.request.body.balance });
     }
 
@@ -90,6 +95,22 @@ router.post('/create', async ctx => {
         }
     } else {
         await ctx.render('create', { error: 'We were not able to verify your account. Please check whether you misspelled your payment pointer.' });
+    }
+});
+
+router.post('/activation', async ctx => {
+    let check = await pointerCheck.process(ctx.request.body);
+    if (check) {
+        console.log(ctx.request.body['survey-id'])
+        let survey = await redis.getOneSurvey(ctx.request.body['survey-id']);
+        console.log(survey)
+        if (survey === null) {
+            await ctx.render('activation', { error: 'We could not find your survey. Please check whether your misspelled your survey ID.' });
+        } else {
+            await ctx.render('deposit', { id: ctx.params.id, name: survey.name, deposit: survey.deposit });
+        }
+    } else {
+        await ctx.render('activation', { error: 'We were not able to verify your account. Please check whether you misspelled your payment pointer.' });
     }
 });
 
