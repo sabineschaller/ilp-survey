@@ -101,9 +101,7 @@ router.post('/create', async ctx => {
 router.post('/activation', async ctx => {
     let check = await pointerCheck.process(ctx.request.body);
     if (check) {
-        console.log(ctx.request.body['survey-id'])
         let survey = await redis.getOneSurvey(ctx.request.body['survey-id']);
-        console.log(survey)
         if (survey === null) {
             await ctx.render('activation', { error: 'We could not find your survey. Please check whether your misspelled your survey ID.' });
         } else {
