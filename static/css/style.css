@@ -17,3 +17,11 @@
     border-color: #800000;
     border-radius: 6px;
 }
+
+#overlay-text {
+    color: white;
+}
+
+#overlay-pic {
+    background: rgba(0, 0, 0, 0.5);
+}
