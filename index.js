@@ -80,11 +80,16 @@ router.post('/survey/:id', async ctx => {
 });
 
 router.post('/create', async ctx => {
-    let codes = await creation.process(ctx.request.body);
-    if (codes === []) {
-        await ctx.render('create', { error: 'A survey with that name already exists. Please choose another name.' });
+    let check = await pointerCheck.process(ctx.request.body);
+    if (check) {
+        let surveyObject = await creation.process(ctx.request.body);
+        if (surveyObject === {}) {
+            await ctx.render('create', { error: 'A survey with that name already exists. Please choose another name.' });
+        } else {
+            await ctx.render('invitecodes', { codes: surveyObject.survey.codes, deposit: surveyObject.survey.deposit, id: surveyObject.id });
+        }
     } else {
-        await ctx.render('invitecodes', { codes: codes });
+        await ctx.render('create', { error: 'We were not able to verify your account. Please check whether you misspelled your payment pointer.' });
     }
 });
 

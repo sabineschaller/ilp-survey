@@ -19,7 +19,16 @@
             <form class="needs-validation" method="POST" novalidate>
 
                 <div class="mb-3">
-                    <label for="survey-name"><b>Name</b></label>
+                    <label for="pp"><b>Payment Pointer</b></label>
+                    <p>Please provide your <a href="https://www.xrptipbot.com">XRP Tip Bot</a> payment pointer. This will associate you with your survey and will be used to check whether you have deposited funds to unlock the survey.</p>
+                    <input type="text" class="form-control" id="pp" name="pp" placeholder="Please input ..." required>
+                    <div class="invalid-feedback">
+                        Please input a valid payment pointer.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="survey-name"><b>Survey Name</b></label>
                     <input type="text" class="form-control" name="survey-name" placeholder="Please input ..." required>
                     <div class="invalid-feedback">
                         Please input a name for the suvey.
@@ -81,7 +90,7 @@
     <footer class="my-5 pt-5 text-muted text-center text-small">
         <p class="mb-1">
             <!--&copy;--> Demo</p>
-            <!-- <ul class="list-inline">
+        <!-- <ul class="list-inline">
               <li class="list-inline-item"><a href="#">Privacy</a></li>
               <li class="list-inline-item"><a href="#">Terms</a></li>
               <li class="list-inline-item"><a href="#">Support</a></li>
@@ -90,5 +99,6 @@
 </div>
 
 <%- include('bootstrap'); -%>
+<script src="/js/payment-pointer-validation.js"></script>
 <script src="js/form-validation.js"></script>
 <script src="js/create-questions.js"></script>

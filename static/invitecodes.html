@@ -1,30 +1,61 @@
 <div class="container">
-        <div class="py-5 text-center">
-    
-            <h2>YOUR INVITE CODES</h2>
-            <hr class="mb-4">
-            <p class="lead">Please store them in a safe place and hand them out to your participants.</p>
+    <div class="py-5 text-center">
+
+        <h2>ADMIN STUFF</h2>
+        <hr class="mb-4">
+        <p class="lead">Please read the information on this page very carefully!</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h5>Here are your invite codes:</h5>
+            <p>Store them in a save place and hand them out to your users.</p>
+            <ul>
+                <% codes.forEach(function(code){ %>
+                <li><samp>
+                        <%- code %></samp></li>
+                <% }); %>
+            </ul>
         </div>
-    
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <ul>
-                    <% codes.forEach(function(code){ %>
-                        <li><samp><%- code %></samp></li> 
-                    <% }); %>
-                </ul>
-            </div>
+        <hr class="mb-4">
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h5>Activate survey now:</h5>
+            <p>In order to activate your survey, you need to deposit the funds to pay your users. The total
+                amount is computed as</p>
+            <p>(# of demographics (6) + # of questions) * price per answer</p>
+            <p>By clicking on the following button, you will be redirected to deposit these funds.</p>
+            <p><b>Your total is
+                    <%- deposit %> XRP</b></p>
+            <a amount="<%- deposit %>" size="275" to="sabinebertram_" network="twitter" href="https://www.xrptipbot.com"
+                target="_blank"></a>
+            <script async src="https://www.xrptipbot.com/static/donate/tipper.js" charset="utf-8"></script>
+            <p>Funds that are not needed are kept by the developer.</p>
         </div>
-    
-        <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">
-                <!--&copy;--> Demo</p>
-                <!-- <ul class="list-inline">
+        <hr class="mb-4">
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h5>Activate survey later:</h5>
+            <p>If you want to activate your survey later, go to our <a href="/activation">Activation</a> page and use
+                the following survey ID together with your payment pointer.</p>
+            <p><b>Survey ID:
+                    <%- id %></b></p>
+        </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">
+            <!--&copy;--> Demo</p>
+        <!-- <ul class="list-inline">
                   <li class="list-inline-item"><a href="#">Privacy</a></li>
                   <li class="list-inline-item"><a href="#">Terms</a></li>
                   <li class="list-inline-item"><a href="#">Support</a></li>
                 </ul> -->
-        </footer>
-    </div>
-    
-    <%- include('bootstrap'); -%>
+    </footer>
+</div>
+
+<%- include('bootstrap'); -%>

@@ -43,11 +43,7 @@
 
                 <div class="mb-3">
                     <label for="pp">Payment Pointer</label>
-                    <% if (pointer) { %>
-                    <input type="text" class="form-control" id="pp" name="pp" value=<%=pointer %> required>
-                    <% }else{ %>
                     <input type="text" class="form-control" id="pp" name="pp" placeholder="Please input ..." required>
-                    <% } %>
                     <div class="invalid-feedback">
                         Please input a valid payment pointer.
                     </div>

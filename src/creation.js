@@ -9,9 +9,9 @@ async function process(obj) {
     let result = await redisFunc.surveys.getAsync(surveyObject.id);
     if (result === null) {
         await redisFunc.surveys.set(surveyObject.id, JSON.stringify(surveyObject.survey));
-        return surveyObject.survey.codes;
+        return surveyObject;
     } else {
-        return [];
+        return {};
     }
 }
 
@@ -20,16 +20,19 @@ function createSurveyObject(obj) {
     let questions = findValueByPrefix(obj, 'q');
     let options = findValueByPrefix(obj, 'o', true);
     let codes = generateInviteCodes(obj['survey-codes']);
+    let deposit = (6 + Object.keys(questions).length) * obj['survey-price'];
     let output = {
-        id : id,
-        survey : {
+        id: id,
+        survey: {
             name: obj['survey-name'],
             instruction: obj['survey-instruction'],
             price: obj['survey-price'],
             questions: questions,
             options: options,
-            codes : codes,
-            timestamp : Date.now()
+            codes: codes,
+            pointer: obj['pp'],
+            deposit: deposit,
+            timestamp: Date.now()
         }
     }
     return output;
