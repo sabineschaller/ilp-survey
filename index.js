@@ -4,13 +4,27 @@ const render = require('koa-ejs');
 const serve = require('koa-static');
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
+const auth = require('koa-basic-auth');
 const demographics = require('./src/demographics');
 const question = require('./src/question');
 const pointerCheck = require('./src/check-pointer');
 const creation = require('./src/creation');
 const redis = require('./src/redis-functions');
+const admin = require('./src/admin');
+
+const credentials = {name: 'admin', pass: 'admin123'}
 
 const app = new Koa();
+
+app.use(async (ctx, next) => {
+    try {
+      await next()
+    } catch (err) {
+      ctx.body = err.message
+      ctx.status = err.status || 500
+    }
+  })
+  
 
 app.use(serve(path.resolve(__dirname, 'static')));
 app.use(bodyParser());
@@ -42,6 +56,11 @@ router.get('/create', async ctx => {
 
 router.get('/activation', async ctx => {
     await ctx.render('activation', { error: '' });
+    ctx.status = 301;
+});
+
+router.get('/admin', auth(credentials), async ctx => {
+    await ctx.render('admin', { error: '' });
     ctx.status = 301;
 });
 
@@ -113,6 +132,17 @@ router.post('/activation', async ctx => {
         }
     } else {
         await ctx.render('activation', { error: 'We were not able to verify your account. Please check whether you misspelled your payment pointer.' });
+    }
+});
+
+router.post('/admin', async ctx => {
+    result = await admin.process(ctx.request.body);
+    if (result === 0) {
+        await ctx.render('admin', {error: 'We could not find any surveys matching these criteria.'})
+    } else if (result === 2) {
+        await ctx.render('admin', {error: 'We found more than one survey matching these criteria.'})
+    } else {
+        await ctx.redirect('/');
     }
 });
 

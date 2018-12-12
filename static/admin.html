@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="py-5 text-center">
+
+        <% if (error) { %>
+        <div class="error">
+            <%= error %>
+        </div>
+        <br>
+        <% } %>
+
+        <h2>ADMIN PANEL</h2>
+        <hr class="mb-4">
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h5>Activate a survey</h5>
+            <form class="needs-validation" method="POST" novalidate>
+
+                <div class="mb-3">
+                    <label for="pp">Payment Pointer</label>
+                    <input type="text" class="form-control" id="pp" name="pp" placeholder="Please input ..." required>
+                    <div class="invalid-feedback">
+                        Please input a valid payment pointer.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="amount">Amount</label>
+                    <input type="number" min="0.01" step="0.01" class="form-control" id="amount" name="amount"
+                        placeholder="Please input ..." required>
+                    <div class="invalid-feedback">
+                        Please input a valid amount.
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Activate</button>
+            </form>
+        </div>
+    </div>
+
+
+    <%- include('footer'); -%>
+</div>
+
+<%- include('bootstrap'); -%>
+<script src="/js/payment-pointer-validation.js"></script>
