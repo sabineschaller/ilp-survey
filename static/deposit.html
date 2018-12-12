@@ -1,35 +1,29 @@
 <div class="container">
-        <div class="py-5 text-center">
-    
-            <h2>ACTIVATE YOUR SURVEY</h2>
-            <hr class="mb-4">
-        </div>
-    
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h5><%- name %></h5>
-                <p>In order to activate your survey, you need to deposit the funds to pay your users. The total
-                    amount is computed as</p>
-                <p>(# of demographics (6) + # of questions) * price per answer</p>
-                <p>By clicking on the following button, you will be redirected to deposit these funds.</p>
-                <p><b>Your total is
-                        <%- deposit %> XRP</b></p>
-                <a amount="<%- deposit %>" size="275" to="sabinebertram_" network="twitter" href="https://www.xrptipbot.com"
-                    target="_blank"></a>
-                <script async src="https://www.xrptipbot.com/static/donate/tipper.js" charset="utf-8"></script>
-                <p>Funds that are not needed are kept by the developer.</p>
-            </div>
-        </div>
-    
-        <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">
-                <!--&copy;--> Demo</p>
-            <!-- <ul class="list-inline">
-                      <li class="list-inline-item"><a href="#">Privacy</a></li>
-                      <li class="list-inline-item"><a href="#">Terms</a></li>
-                      <li class="list-inline-item"><a href="#">Support</a></li>
-                    </ul> -->
-        </footer>
+    <div class="py-5 text-center">
+
+        <h2>ACTIVATE YOUR SURVEY</h2>
+        <hr class="mb-4">
     </div>
-    
-    <%- include('bootstrap'); -%>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h5>
+                <%- name %>
+            </h5>
+            <p>In order to activate your survey, you need to deposit the funds to pay your users. The total
+                amount is computed as</p>
+            <p>(# of demographics (6) + # of questions) * price per answer</p>
+            <p>By clicking on the following button, you will be redirected to deposit these funds.</p>
+            <p><b>Your total is
+                    <%- deposit %> XRP</b></p>
+            <a amount="<%- deposit %>" size="275" to="sabinebertram_" network="twitter" href="https://www.xrptipbot.com"
+                target="_blank"></a>
+            <script async src="https://www.xrptipbot.com/static/donate/tipper.js" charset="utf-8"></script>
+            <p>Funds that are not needed are kept by the developer.</p>
+        </div>
+    </div>
+
+    <%- include('footer'); -%>
+</div>
+
+<%- include('bootstrap'); -%>
