@@ -20,7 +20,7 @@ function createSurveyObject(obj) {
     let questions = findValueByPrefix(obj, 'q');
     let options = findValueByPrefix(obj, 'o', true);
     let codes = generateInviteCodes(obj['survey-codes']);
-    let deposit = (6 + Object.keys(questions).length) * obj['survey-price'];
+    let deposit = (6 + Object.keys(questions).length) * obj['survey-price'] * codes.length;
     let output = {
         id: id,
         survey: {
