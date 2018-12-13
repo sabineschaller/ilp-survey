@@ -2,13 +2,13 @@
 
 const hat = require('hat');
 const helpers = require('./helpers');
-const redisFunc = require('./redis-functions')
+const redis = require('./redis-functions')
 
 async function process(obj) {
     let surveyObject = await createSurveyObject(obj);
-    let result = await redisFunc.surveys.getAsync(surveyObject.id);
+    let result = await redis.surveys.getAsync(surveyObject.id);
     if (result === null) {
-        await redisFunc.surveys.set(surveyObject.id, JSON.stringify(surveyObject.survey));
+        await redis.surveys.set(surveyObject.id, JSON.stringify(surveyObject.survey));
         return surveyObject;
     } else {
         return {};

@@ -1,12 +1,12 @@
 'use strict';
 
-const {promisify} = require('util');
+const { promisify } = require('util');
 const redis = require('redis');
-const surveys = redis.createClient()
+const surveys = redis.createClient();
 surveys.getAsync = promisify(surveys.get).bind(surveys);
 surveys.keysAsync = promisify(surveys.keys).bind(surveys);
 
-surveys.on('connect', function() {
+surveys.on('connect', function () {
     console.log('Redis client surveys connected');
 });
 
@@ -32,7 +32,7 @@ async function getOneSurvey(id) {
 }
 
 module.exports = {
-    surveys : surveys,
-    getAllSurveys : getAllSurveys,
-    getOneSurvey : getOneSurvey
+    surveys: surveys,
+    getAllSurveys: getAllSurveys,
+    getOneSurvey: getOneSurvey
 };
