@@ -153,13 +153,10 @@ router.post('/admin', async ctx => {
 
 router.post('/answers', async ctx => {
     let survey = await redis.getOneSurvey('s' + ctx.request.body['survey-id']);
-    console.log(survey)
     let result = await answers.process(ctx.request.body);
     if (result === {}) {
         await ctx.render('answers', { error: 'We could not find any surveys matching these criteria.' })
     } else {
-        console.log(JSON.parse(result));
-        console.log(Object.keys(JSON.parse(result)))
         await ctx.render('results', { survey: survey, result: JSON.parse(result) });
     }
 });
