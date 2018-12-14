@@ -12,6 +12,7 @@ const creation = require('./src/creation');
 const redis = require('./src/redis-functions');
 const admin = require('./src/admin');
 const answers = require('./src/answers');
+const payment = require('./src/payment');
 
 const credentials = { name: 'admin', pass: 'admin123' }
 
@@ -107,6 +108,7 @@ router.post('/survey/:id', async ctx => {
             await n++;
             await ctx.render('question', { question: survey.questions['q' + n], options: survey.options['o' + n], total: total, n: n, pointer: ctx.request.body.pp, balance: balance.toFixed(2) });
         } else {
+            await payment.pay(ctx.request.body.pp, Number(ctx.request.body.balance) + survey.price);
             await ctx.render('thanks', { pointer: ctx.request.body.pp, balance: balance.toFixed(2) });
         }
     }

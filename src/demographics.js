@@ -1,14 +1,12 @@
 'use strict';
 
-const payment = require('./payment');
 const helpers = require('./helpers');
 const redis = require('./redis-functions');
 
-async function process(id, price, obj) {
-    await storeAnswers(id, obj);
+function process(id, price, obj) {
+    storeAnswers(id, obj);
     let declines = count(obj);
     let payout = computePayout(price, declines);
-    await payment.pay(obj.pp, payout);
     return Number(obj.balance) + helpers.dropsToXRP(payout);
 }
 
