@@ -1,5 +1,5 @@
 {
-  "name": "ilp-monetized-survey",
+  "name": "ilp-survey",
   "version": "0.0.1",
   "description": "A prototype to monetize survey participation.",
   "main": "index.js",
