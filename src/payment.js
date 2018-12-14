@@ -3,9 +3,11 @@
 const ilp = require('ilp');
 const spsp = require('ilp-protocol-spsp');
 const debug = require('debug')('ilp-spsp');
+const helpers = require('./helpers');
 
 async function pay(recipient, amount) {
-    console.log(recipient, amount);
+    let amountDrops = helpers.XRPToDrops(amount);
+    console.log(recipient, amountDrops);
     try {
         const plugin = ilp.createPlugin()
         debug('connecting plugin')
@@ -14,7 +16,7 @@ async function pay(recipient, amount) {
         debug('sending payment')
         await spsp.pay(plugin, {
             receiver: recipient,
-            sourceAmount: amount
+            sourceAmount: amountDrops
         })
         console.log('sent!')
         return true;

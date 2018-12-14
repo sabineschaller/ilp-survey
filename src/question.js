@@ -1,6 +1,5 @@
 'use strict';
 
-const helpers = require('./helpers');
 const redis = require('./redis-functions');
 
 function process(id, n, price, obj) {
