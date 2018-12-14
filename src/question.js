@@ -12,8 +12,7 @@ async function process(id, n, price, obj) {
 
 async function storeAnswer(id, n, obj) {
     let surveyAnswers = await redis.getOneSurvey('a' + id.substr(1));
-    let answerId = helpers.hashCode(obj.pc);
-    surveyAnswers[answerId]['q' + n] = obj.options;
+    surveyAnswers[obj.pc]['q' + n] = obj.options;
     redis.surveys.set('a' + id.substr(1), JSON.stringify(surveyAnswers));
 }
 

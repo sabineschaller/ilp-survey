@@ -28,7 +28,6 @@ function computePayout(price, declines) {
 
 async function storeAnswers(id, obj) {
     let surveyAnswers = await redis.getOneSurvey('a' + id.substr(1));
-    let answerId = helpers.hashCode(obj.pc);
     let demographics = {
         age: obj.age,
         race: obj.race,
@@ -37,7 +36,7 @@ async function storeAnswers(id, obj) {
         education: obj.education,
         nationality: obj.nationality
     }
-    surveyAnswers[answerId] = demographics;
+    surveyAnswers[obj.pc] = demographics;
     redis.surveys.set('a' + id.substr(1), JSON.stringify(surveyAnswers));
 }
 
