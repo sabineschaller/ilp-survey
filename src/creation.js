@@ -8,7 +8,8 @@ async function process(obj) {
     let surveyObject = await createSurveyObject(obj);
     let result = await redis.surveys.getAsync(surveyObject.id);
     if (result === null) {
-        await redis.surveys.set(surveyObject.id, JSON.stringify(surveyObject.survey));
+        await redis.surveys.set('s' + surveyObject.id, JSON.stringify(surveyObject.survey));
+        await redis.surveys.set('a' + surveyObject.id, JSON.stringify({}));
         return surveyObject;
     } else {
         return {};
@@ -26,7 +27,7 @@ function createSurveyObject(obj) {
         survey: {
             name: obj['survey-name'],
             instruction: obj['survey-instruction'],
-            price: obj['survey-price'],
+            price: Number(obj['survey-price']),
             questions: questions,
             options: options,
             codes: codes,

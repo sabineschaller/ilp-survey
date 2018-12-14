@@ -67,7 +67,6 @@ router.get('/admin', auth(credentials), async ctx => {
 router.post('/survey/:id', async ctx => {
     let survey = await redis.getOneSurvey(ctx.params.id);
     let total = Object.keys(survey.questions).length;
-    let price = Number(survey.price);
 
     if (ctx.request.body['form-origin'] === 'welcome') {
         if (survey.codes.includes(ctx.request.body.pc)) {
@@ -83,7 +82,7 @@ router.post('/survey/:id', async ctx => {
     }
 
     else if (ctx.request.body['form-origin'] === 'demographics') {
-        let balance = demographics.process(price, ctx.request.body);
+        let balance = await demographics.process(ctx.params.id, survey.price, ctx.request.body);
         await ctx.render('instructions', { instruction: survey.instruction, pointer: ctx.request.body.pp, balance: balance.toFixed(2) });
     }
 
@@ -92,8 +91,8 @@ router.post('/survey/:id', async ctx => {
     }
 
     else if (ctx.request.body['form-origin'] === 'question') {
-        let balance = question.process(price, ctx.request.body);
         let n = await ctx.request.body.n;
+        let balance = await question.process(ctx.params.id, n, survey.price, ctx.request.body);
         if (n < total) {
             await n++;
             await ctx.render('question', { question: survey.questions['q' + n], options: survey.options['o' + n], total: total, n: n, pointer: ctx.request.body.pp, balance: balance.toFixed(2) });
