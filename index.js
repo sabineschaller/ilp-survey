@@ -73,14 +73,18 @@ router.get('/answers', auth(credentials), async ctx => {
 router.post('/survey/:id', async ctx => {
     let survey = await redis.getOneSurvey(ctx.params.id);
     let total = Object.keys(survey.questions).length;
-
     if (ctx.request.body['form-origin'] === 'welcome') {
         if (survey.codes.includes(ctx.request.body.pc)) {
-            let check = await pointerCheck.process(ctx.request.body);
-            if (check) {
-                await ctx.render('demographics', { pointer: ctx.request.body.pp, balance: 0 });
+            let answers = await redis.getOneSurvey('a' + ctx.params.id.substr(1));
+            if (!Object.keys(answers).includes(ctx.request.body.pc)){
+                let check = await pointerCheck.process(ctx.request.body);
+                if (check) {
+                    await ctx.render('demographics', { pointer: ctx.request.body.pp, balance: 0 });
+                } else {
+                    await ctx.render('welcome', { name: survey.name.toUpperCase(), pointer: '', balance: 0, error: 'We were not able to verify your account. Please check whether you misspelled your payment pointer.' });
+                }
             } else {
-                await ctx.render('welcome', { name: survey.name.toUpperCase(), pointer: '', balance: 0, error: 'We were not able to verify your account. Please check whether you misspelled your payment pointer.' });
+                await ctx.render('welcome', { name: survey.name.toUpperCase(), pointer: '', balance: 0, error: 'Your participation code has been used before. Please use another one.' });
             }
         } else {
             await ctx.render('welcome', { name: survey.name.toUpperCase(), pointer: '', balance: 0, error: 'Sorry, we could not find your participation code. Please try again.' });
