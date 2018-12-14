@@ -1,0 +1,48 @@
+<div class="container">
+        <div class="py-5 text-center">
+    
+            <% if (error) { %>
+            <div class="error">
+                <%= error %>
+            </div>
+            <br>
+            <% } %>
+    
+            <h2>GET YOUR SURVEY ANSWERS</h2>
+            <hr class="mb-4">
+            <p class="lead">This is the place to retrieve the answers you got for your survey. Users are anonymized.</p>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form class="needs-validation" method="POST" novalidate>
+    
+                    <div class="mb-3">
+                        <label for="pp">Payment Pointer</label>
+                        <input type="text" class="form-control" id="pp" name="pp" placeholder="Please input ..." required>
+                        <div class="invalid-feedback">
+                            Please input a valid payment pointer.
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="survey-id">Survey ID</label>
+                        <input type="text" class="form-control" id="survey-id" name="survey-id" placeholder="Please input ..."
+                            required>
+                        <div class="invalid-feedback">
+                            Please input a valid survey ID.
+                        </div>
+                    </div>
+    
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Retrieve</button>
+                </form>
+            </div>
+        </div>
+    
+    
+        <%- include('footer'); -%>
+    </div>
+    
+    <%- include('bootstrap'); -%>
+    <script src="/js/payment-pointer-validation.js"></script>

@@ -11,20 +11,21 @@ const pointerCheck = require('./src/check-pointer');
 const creation = require('./src/creation');
 const redis = require('./src/redis-functions');
 const admin = require('./src/admin');
+const answers = require('./src/answers');
 
-const credentials = {name: 'admin', pass: 'admin123'}
+const credentials = { name: 'admin', pass: 'admin123' }
 
 const app = new Koa();
 
 app.use(async (ctx, next) => {
     try {
-      await next()
+        await next()
     } catch (err) {
-      ctx.body = err.message
-      ctx.status = err.status || 500
+        ctx.body = err.message
+        ctx.status = err.status || 500
     }
-  })
-  
+})
+
 
 app.use(serve(path.resolve(__dirname, 'static')));
 app.use(bodyParser());
@@ -61,6 +62,11 @@ router.get('/activation', async ctx => {
 
 router.get('/admin', auth(credentials), async ctx => {
     await ctx.render('admin', { error: '' });
+    ctx.status = 301;
+});
+
+router.get('/answers', auth(credentials), async ctx => {
+    await ctx.render('answers', { error: '' });
     ctx.status = 301;
 });
 
@@ -137,11 +143,24 @@ router.post('/activation', async ctx => {
 router.post('/admin', async ctx => {
     result = await admin.process(ctx.request.body);
     if (result === 0) {
-        await ctx.render('admin', {error: 'We could not find any surveys matching these criteria.'})
+        await ctx.render('admin', { error: 'We could not find any surveys matching these criteria.' })
     } else if (result === 2) {
-        await ctx.render('admin', {error: 'We found more than one survey matching these criteria.'})
+        await ctx.render('admin', { error: 'We found more than one survey matching these criteria.' })
     } else {
         await ctx.redirect('/');
+    }
+});
+
+router.post('/answers', async ctx => {
+    let survey = await redis.getOneSurvey('s' + ctx.request.body['survey-id']);
+    console.log(survey)
+    let result = await answers.process(ctx.request.body);
+    if (result === {}) {
+        await ctx.render('answers', { error: 'We could not find any surveys matching these criteria.' })
+    } else {
+        console.log(JSON.parse(result));
+        console.log(Object.keys(JSON.parse(result)))
+        await ctx.render('results', { survey: survey, result: JSON.parse(result) });
     }
 });
 

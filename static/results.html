@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="py-5 text-center">
+
+        <h2>GET YOUR SURVEY ANSWERS</h2>
+        <hr class="mb-4">
+        <p class="lead">Here are your results!</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Race</th>
+                            <th scope="col">Ethnicity</th>
+                            <th scope="col">Sex</th>
+                            <th scope="col">Education</th>
+                            <th scope="col">Nationality</th>
+                            <% for (let i=1; i < Object.keys(survey.questions).length+1; i++) { %>
+                            <th scope="col">
+                                <%- 'Q '+ i -%>
+                            </th>
+                            <% } %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% let i = 1 %>
+                        <% Object.keys(result).forEach(function(id) { %>
+                        <tr>
+                            <th scope="row">
+                                <%- i -%>
+                            </th>
+                            <td>
+                                <%- result[id].age -%>
+                            </td>
+                            <td>
+                                <%- result[id].race -%>
+                            </td>
+                            <td>
+                                <%- result[id].ethnicity -%>
+                            </td>
+                            <td>
+                                <%- result[id].sex -%>
+                            </td>
+                            <td>
+                                <%- result[id].education -%>
+                            </td>
+                            <td>
+                                <%- result[id].nationality -%>
+                            </td>
+                            <% for (let i=1; i < Object.keys(survey.questions).length+1; i++) {%>
+                            <td>
+                                <%- result[id]['q' + i] -%>
+                            </td>
+                            <% } %>
+                        </tr>
+                        <% i++ %>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" onclick="exportTableToCSV('results.csv')">Export HTML table to CSV file</button>
+        </div>
+    </div>
+
+
+    <%- include('footer'); -%>
+</div>
+
+<%- include('bootstrap'); -%>
+<script src="/js/results.js"></script>
