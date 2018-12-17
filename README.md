@@ -5,6 +5,7 @@
 - [ ] improve efficiency
 - [ ] user handling
 - [ ] prevent user from getting paid multiple times
+- [ ] testing
 
 ## Introduction
 
