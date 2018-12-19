@@ -20,12 +20,17 @@ const app = new Koa();
 
 app.use(async (ctx, next) => {
     try {
-        await next()
+      await next();
     } catch (err) {
-        ctx.body = err.message
-        ctx.status = err.status || 500
+      if (401 == err.status) {
+        ctx.status = 401;
+        ctx.set('WWW-Authenticate', 'Basic');
+        ctx.body = 'Unauthorized';
+      } else {
+        throw err;
+      }
     }
-})
+  });
 
 
 app.use(serve(path.resolve(__dirname, 'static')));
@@ -66,7 +71,7 @@ router.get('/admin', auth(credentials), async ctx => {
     ctx.status = 301;
 });
 
-router.get('/answers', auth(credentials), async ctx => {
+router.get('/answers', async ctx => {
     await ctx.render('answers', { error: '' });
     ctx.status = 301;
 });
