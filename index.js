@@ -20,17 +20,17 @@ const app = new Koa();
 
 app.use(async (ctx, next) => {
     try {
-      await next();
+        await next();
     } catch (err) {
-      if (401 == err.status) {
-        ctx.status = 401;
-        ctx.set('WWW-Authenticate', 'Basic');
-        ctx.body = 'Unauthorized';
-      } else {
-        throw err;
-      }
+        if (401 == err.status) {
+            ctx.status = 401;
+            ctx.set('WWW-Authenticate', 'Basic');
+            ctx.body = 'Unauthorized';
+        } else {
+            throw err;
+        }
     }
-  });
+});
 
 
 app.use(serve(path.resolve(__dirname, 'static')));
@@ -82,7 +82,7 @@ router.post('/survey/:id', async ctx => {
     if (ctx.request.body['form-origin'] === 'welcome') {
         if (survey.codes.includes(ctx.request.body.pc)) {
             let answers = await redis.getOneSurvey('a' + ctx.params.id.substr(1));
-            if (!Object.keys(answers).includes(ctx.request.body.pc)){
+            if (!Object.keys(answers).includes(ctx.request.body.pc)) {
                 let check = await pointerCheck.process(ctx.request.body);
                 if (check) {
                     await ctx.render('demographics', { pointer: ctx.request.body.pp, balance: 0 });
@@ -120,16 +120,11 @@ router.post('/survey/:id', async ctx => {
 });
 
 router.post('/create', async ctx => {
-    let check = await pointerCheck.process(ctx.request.body);
-    if (check) {
-        let surveyObject = await creation.process(ctx.request.body);
-        if (surveyObject === {}) {
-            await ctx.render('create', { error: 'A survey with that name already exists. Please choose another name.' });
-        } else {
-            await ctx.render('invitecodes', { codes: surveyObject.survey.codes, deposit: surveyObject.survey.deposit, id: surveyObject.id });
-        }
+    let surveyObject = await creation.process(ctx.request.body);
+    if (surveyObject === {}) {
+        await ctx.render('create', { error: 'A survey with that name already exists. Please choose another name.' });
     } else {
-        await ctx.render('create', { error: 'We were not able to verify your account. Please check whether you misspelled your payment pointer.' });
+        await ctx.render('invitecodes', { codes: surveyObject.survey.codes, deposit: surveyObject.survey.deposit, id: surveyObject.id });
     }
 });
 

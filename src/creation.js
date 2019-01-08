@@ -1,29 +1,53 @@
 'use strict';
 
 const hat = require('hat');
+const request = require('request');
+const crypto = require('crypto');
 const helpers = require('./helpers');
-const redis = require('./redis-functions')
+const redis = require('./redis-functions');
 
 async function process(obj) {
     let surveyObject = await createSurveyObject(obj);
-    let result = await redis.surveys.getAsync(surveyObject.id);
-    if (result === null) {
+    let response = await post(
+        'http://ilpsurvey.localtunnel.me/',
+        {
+            'auth': {
+                'bearer': 'test'
+            },
+            'form': {
+                'maximum': surveyObject.survey.deposit,
+                'name': surveyObject.survey.name
+            }
+        }
+    )
+    if (response) {
+        surveyObject['id'] = await response.receiver.split('/')[1]
         await redis.surveys.set('s' + surveyObject.id, JSON.stringify(surveyObject.survey));
         await redis.surveys.set('a' + surveyObject.id, JSON.stringify({}));
         return surveyObject;
     } else {
-        return {};
+        return {}
     }
 }
 
+function post(url, parameter) {
+    return new Promise(function (resolve, reject) {
+        request.post(url, parameter, function (error, res, body) {
+            if (!error && res.statusCode == 200) {
+                resolve(JSON.parse(body));
+            } else {
+                reject(error);
+            }
+        });
+    });
+}
+
 function createSurveyObject(obj) {
-    let id = helpers.hashCode(obj['survey-name']);
     let questions = findValueByPrefix(obj, 'q');
     let options = findValueByPrefix(obj, 'o', true);
     let codes = generateInviteCodes(obj['survey-codes']);
     let deposit = (6 + Object.keys(questions).length) * obj['survey-price'] * codes.length;
     let output = {
-        id: id,
         survey: {
             name: obj['survey-name'],
             instruction: obj['survey-instruction'],
@@ -31,8 +55,8 @@ function createSurveyObject(obj) {
             questions: questions,
             options: options,
             codes: codes,
-            pointer: obj['pp'],
             deposit: deposit,
+            password: helpers.hashCode(obj['pw']),
             timestamp: Date.now()
         }
     }

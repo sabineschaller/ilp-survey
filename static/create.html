@@ -19,15 +19,6 @@
             <form class="needs-validation" method="POST" novalidate>
 
                 <div class="mb-3">
-                    <label for="pp"><b>Payment Pointer</b></label>
-                    <p>Please provide your <a href="https://www.xrptipbot.com">XRP Tip Bot</a> payment pointer. This will associate you with your survey and will be used to check whether you have deposited funds to unlock the survey.</p>
-                    <input type="text" class="form-control" id="pp" name="pp" placeholder="Please input ..." required>
-                    <div class="invalid-feedback">
-                        Please input a valid payment pointer.
-                    </div>
-                </div>
-
-                <div class="mb-3">
                     <label for="survey-name"><b>Survey Name</b></label>
                     <input type="text" class="form-control" name="survey-name" placeholder="Please input ..." required>
                     <div class="invalid-feedback">
@@ -78,6 +69,14 @@
                     </div>
                 </div>
 
+                <div class="mb-3">
+                    <label for="pw"><b>Password</b></label>
+                    <p>Please provide a password. This will be needed to retrieve your answers.</p>
+                    <input type="password" class="form-control" id="pw" name="pw" placeholder="Please input ..." required>
+                    <div class="invalid-feedback">
+                        Please input a valid payment pointer.
+                    </div>
+                </div>
 
                 <input type="text" id="form-origin" name="form-origin" value="create" hidden>
 
