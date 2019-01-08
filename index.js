@@ -114,7 +114,7 @@ router.post('/survey/:id', async ctx => {
             await n++;
             await ctx.render('question', { question: survey.questions['q' + n], options: survey.options['o' + n], total: total, n: n, pointer: ctx.request.body.pp, balance: balance.toFixed(2) });
         } else {
-            await payment.pay(ctx.request.body.pp, Number(ctx.request.body.balance) + survey.price);
+            await payment.send(ctx.params.id, ctx.request.body.pp, Number(ctx.request.body.balance) + survey.price);
             await ctx.render('thanks', { pointer: ctx.request.body.pp, balance: balance.toFixed(2) });
         }
     }
@@ -148,7 +148,6 @@ router.post('/activation', async ctx => {
 });
 
 router.post('/activate', ctx => {
-    console.log(ctx.request.body)
     activation.process(ctx.request.body);
 })
 
