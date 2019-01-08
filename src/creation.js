@@ -15,7 +15,7 @@ async function process(obj) {
                 'bearer': 'test'
             },
             'form': {
-                'maximum': surveyObject.survey.deposit,
+                'maximum': helpers.XRPToDrops(surveyObject.survey.deposit),
                 'name': surveyObject.survey.name
             }
         }
