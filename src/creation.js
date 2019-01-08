@@ -16,7 +16,8 @@ async function process(obj) {
             },
             'form': {
                 'maximum': helpers.XRPToDrops(surveyObject.survey.deposit),
-                'name': surveyObject.survey.name
+                'name': surveyObject.survey.name,
+                'webhook': 'http://localhost:3000/activate'
             }
         }
     )

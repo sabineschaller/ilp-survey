@@ -11,6 +11,7 @@ const pointerCheck = require('./src/check-pointer');
 const creation = require('./src/creation');
 const redis = require('./src/redis-functions');
 const admin = require('./src/admin');
+const activation = require('./src/activation');
 const answers = require('./src/answers');
 const payment = require('./src/payment');
 
@@ -145,6 +146,11 @@ router.post('/activation', async ctx => {
         await ctx.render('activation', { error: 'We were not able to verify your account. Please check whether you misspelled your payment pointer.' });
     }
 });
+
+router.post('/activate', ctx => {
+    console.log(ctx.request.body)
+    activation.process(ctx.request.body);
+})
 
 router.post('/admin', async ctx => {
     result = await admin.process(ctx.request.body);
