@@ -4,6 +4,7 @@ const ilp = require('ilp');
 const spsp = require('ilp-protocol-spsp');
 const request = require('request');
 const debug = require('debug')('ilp-spsp');
+const config = require('./config');
 const helpers = require('./helpers');
 
 async function pay(recipient, amount) {
@@ -33,10 +34,10 @@ async function send(id, recipient, amount) {
     console.log(recipient, amountDrops);
 
     let response = await post(
-        'http://ilpsurvey.localtunnel.me/' + id.substr(1),
+        'http://' + config.ILP_SERVER + '/' + id.substr(1),
         {
             'auth': {
-                'bearer': 'test'
+                'bearer': config.AUTH_TOKEN
             },
             'form': {
                 'amount': amountDrops, 

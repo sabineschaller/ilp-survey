@@ -5,6 +5,7 @@ const serve = require('koa-static');
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
 const auth = require('koa-basic-auth');
+const config = require('./src/config');
 const demographics = require('./src/demographics');
 const question = require('./src/question');
 const pointerCheck = require('./src/check-pointer');
@@ -118,6 +119,6 @@ router.post('/answers', async ctx => {
 });
 
 app.use(router.routes());
-app.listen(3000, function () {
-    console.log('Server running on https://localhost:3000')
+app.listen(config.PORT, function () {
+    console.log('Server running on https://' + config.HOST + ':' + config.PORT)
 });

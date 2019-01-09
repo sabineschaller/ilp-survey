@@ -3,21 +3,22 @@
 const hat = require('hat');
 const request = require('request');
 const crypto = require('crypto');
+const config = require('./config');
 const helpers = require('./helpers');
 const redis = require('./redis-functions');
 
 async function process(obj) {
     let surveyObject = await createSurveyObject(obj);
     let response = await post(
-        'http://ilpsurvey.localtunnel.me/',
+        'http://' + config.ILP_SERVER + '/',
         {
             'auth': {
-                'bearer': 'test'
+                'bearer': config.AUTH_TOKEN
             },
             'form': {
                 'maximum': helpers.XRPToDrops(surveyObject.survey.deposit),
                 'name': surveyObject.survey.name,
-                'webhook': 'http://localhost:3000/activate'
+                'webhook': 'http://' + config.HOST + ':' + config.PORT + '/activate'
             }
         }
     )
