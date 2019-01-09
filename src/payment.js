@@ -57,7 +57,7 @@ function post(url, parameter) {
     return new Promise(function (resolve, reject) {
         request.post(url, parameter, function (error, res, body) {
             if (!error && res.statusCode == 200) {
-                resolve();
+                resolve(res);
             } else {
                 reject(error);
             }

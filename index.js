@@ -10,7 +10,6 @@ const question = require('./src/question');
 const pointerCheck = require('./src/check-pointer');
 const creation = require('./src/creation');
 const redis = require('./src/redis-functions');
-const admin = require('./src/admin');
 const activation = require('./src/activation');
 const answers = require('./src/answers');
 const payment = require('./src/payment');
@@ -18,21 +17,6 @@ const payment = require('./src/payment');
 const credentials = { name: 'admin', pass: 'admin123' }
 
 const app = new Koa();
-
-app.use(async (ctx, next) => {
-    try {
-        await next();
-    } catch (err) {
-        if (401 == err.status) {
-            ctx.status = 401;
-            ctx.set('WWW-Authenticate', 'Basic');
-            ctx.body = 'Unauthorized';
-        } else {
-            throw err;
-        }
-    }
-});
-
 
 app.use(serve(path.resolve(__dirname, 'static')));
 app.use(bodyParser());
@@ -59,16 +43,6 @@ router.get('/survey/:id', async ctx => {
 
 router.get('/create', async ctx => {
     await ctx.render('create', { error: '' });
-    ctx.status = 301;
-});
-
-router.get('/activation', async ctx => {
-    await ctx.render('activation', { error: '' });
-    ctx.status = 301;
-});
-
-router.get('/admin', auth(credentials), async ctx => {
-    await ctx.render('admin', { error: '' });
     ctx.status = 301;
 });
 
@@ -129,38 +103,9 @@ router.post('/create', async ctx => {
     }
 });
 
-router.post('/activation', async ctx => {
-    let check = await pointerCheck.process(ctx.request.body);
-    if (check) {
-        let survey = await redis.getOneSurvey('s' + ctx.request.body['survey-id']);
-        if (survey === null) {
-            await ctx.render('activation', { error: 'We could not find your survey. Please check whether your misspelled your survey ID.' });
-        } else {
-            if (ctx.request.body['pp'] === survey.pointer) {
-                await ctx.render('deposit', { id: ctx.params.id, name: survey.name, deposit: survey.deposit });
-            } else {
-                await ctx.render('activation', { error: 'This is not the payment pointer you used to create the survey. Please use your original pointer.' });
-            }
-        }
-    } else {
-        await ctx.render('activation', { error: 'We were not able to verify your account. Please check whether you misspelled your payment pointer.' });
-    }
-});
-
 router.post('/activate', ctx => {
     activation.process(ctx.request.body);
 })
-
-router.post('/admin', async ctx => {
-    result = await admin.process(ctx.request.body);
-    if (result === 0) {
-        await ctx.render('admin', { error: 'We could not find any surveys matching these criteria.' })
-    } else if (result === 2) {
-        await ctx.render('admin', { error: 'We found more than one survey matching these criteria.' })
-    } else {
-        await ctx.redirect('/');
-    }
-});
 
 router.post('/answers', async ctx => {
     let survey = await redis.getOneSurvey('s' + ctx.request.body['survey-id']);
