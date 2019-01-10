@@ -43,7 +43,7 @@ By default, the application can be reached at http://localhost:3000. However, yo
 | `PORT` | `3000` | port to listen on. |
 | `HOST` | `localhost` | host to listen on. |
 | `ILP_SERVER` | `ilpsurvey.localtunnel.me` | Domain where the [ilp-spsp-prepaid-server](https://github.com/sabinebertram/ilp-spsp-prepaid-server) can be reached and the survey payment information are stored. |
-| `AUTH_TOKEN` | `test` | Bearer token for interacting with the [ilp-spsp-prepaid-server](https://github.com/sabinebertram/ilp-spsp-prepaid-server. |
+| `AUTH_TOKEN` | `test` | Bearer token for interacting with the [ilp-spsp-prepaid-server](https://github.com/sabinebertram/ilp-spsp-prepaid-server). |
 
 
 ## Usage
