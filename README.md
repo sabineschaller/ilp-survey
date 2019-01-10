@@ -70,7 +70,39 @@ To activate the survey, send the full funds to the survey's pointer
 
 You may need to install the command line tool [ilp-spsp](https://github.com/interledgerjs/ilp-spsp) by running `npm install -g ilp-spsp`.
 
-Now, the survey is available on the home screen. It displays the name of the survey as well as the price per question answered.
+In case you want to check the the payment pointer information before you process the payment, you may do so using the following GET request.
+
+    $ http GET ilpsurvey.localtunnel.me/23a9c6ea-c5ee-4f68-83e4-ef1360c8f2f2 Accept:"application/spsp4+json"
+
+The response will be 
+
+```http
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 386
+Content-Type: application/spsp4+json
+Date: Thu, 10 Jan 2019 22:44:59 GMT
+Server: nginx/1.10.1
+
+{
+    "balance": {
+        "current": "0",
+        "maximum": "28000000"
+    },
+    "destination_account": "private.moneyd.local.zQqGsK6bg6q4J1TL00XvAdyL8v93VurOWLpnMgSzNb8.63swBEGQNvnn52vMRvBq-uag~23a9c6ea-c5ee-4f68-83e4-ef1360c8f2f2",
+    "pull_balance": {
+        "current_amount": "0",
+        "maximum_amount": "0"
+    },
+    "receiver_info": {
+        "name": "My Sample Survey"
+    },
+    "shared_secret": "dXGYytLMt8xCFh3a7tpfSbgmRuol4Y5ZHgVdrXGj67U="
+}
+
+```
+
+Once the activation amount has been sent, the survey is available on the home screen. It displays the name of the survey as well as the price per question answered.
 
 ![](documentation/5.png)
 
