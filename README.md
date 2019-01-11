@@ -86,14 +86,11 @@ Server: nginx/1.10.1
 
 {
     "balance": {
+        "available": "0",
         "current": "0",
         "maximum": "28000000"
     },
     "destination_account": "private.moneyd.local.zQqGsK6bg6q4J1TL00XvAdyL8v93VurOWLpnMgSzNb8.63swBEGQNvnn52vMRvBq-uag~23a9c6ea-c5ee-4f68-83e4-ef1360c8f2f2",
-    "pull_balance": {
-        "current_amount": "0",
-        "maximum_amount": "0"
-    },
     "receiver_info": {
         "name": "My Sample Survey"
     },
